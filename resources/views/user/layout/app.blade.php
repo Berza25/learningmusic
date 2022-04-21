@@ -7,11 +7,13 @@
     @include('user.layout.partials.head')
 </head>
 <body>
-    @include('user.layout.partials.navbar')
+    @include('user.layout.partials.header')
     <main id="main">
-        <div class="container">
-            @yield('content')
-        </div>
+        <section>
+            <div class="container">
+                @yield('content')
+            </div>
+        </section>
     </main>
     @include('user.layout.partials.javascript')
 </body>

@@ -14,8 +14,8 @@ class UserCourseController extends Controller
     }
     public function show($slug)
     {
-        $data=Course::where('slug', $slug)->get();
+        $data=Course::with('price', 'level')->where('slug', $slug)->get();
         return view('user.course.show', compact('data'));
     }
-    
+
 }

@@ -32,9 +32,9 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::resource('/materi', MateriController::class);
     Route::resource('/price', PriceController::class);
  });
- Route::group(['middleware' => 'hakakses:user'], function(){
+ Route::group(['middleware' => 'hakakses:user,admin'], function(){
      Route::get('/courses', [UserCourseController::class,'index']);
      Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
  });
-    
+
 });
