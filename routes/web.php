@@ -4,7 +4,7 @@ use App\Http\Middleware\HakAkses;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PriceController;
-use App\Http\Controllers\MateriController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserCourseController;
 
 /*
@@ -29,7 +29,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
         return view('admin.dashboard');
     });
     Route::resource('/level', LevelController::class);
-    Route::resource('/materi', MateriController::class);
+    Route::resource('/admin/course', CourseController::class);
     Route::resource('/price', PriceController::class);
  });
  Route::group(['middleware' => 'hakakses:user,admin'], function(){
