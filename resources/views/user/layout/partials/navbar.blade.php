@@ -5,6 +5,7 @@
             <li><a class="nav-link scrollto" href="/dashboard">Dashboard</a></li>
         @endif
         <li><a class="nav-link scrollto" href="/courses">Courses</a></li>
+        <li><a class="nav-link scrollto" href="/mycourse">My Course</a></li>
         <li><a class="nav-link scrollto" href="#about">About</a></li>
         <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         <li><a class="getstarted scrollto" href="{{ route('logout') }}" onclick="event.preventDefault();

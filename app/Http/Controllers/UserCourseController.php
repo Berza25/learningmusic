@@ -17,5 +17,9 @@ class UserCourseController extends Controller
         $data=Course::with('price', 'level')->where('slug', $slug)->get();
         return view('user.course.show', compact('data'));
     }
-
+    public function store(Request $request)
+    {
+        $data=Course::with('price', 'level')->where('slug', $slug)->get();
+        return view('user.course.show', compact('data'));
+    }
 }

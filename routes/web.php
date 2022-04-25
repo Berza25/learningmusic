@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\UserCourseController;
 
 /*
@@ -35,6 +36,8 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
  Route::group(['middleware' => 'hakakses:user,admin'], function(){
      Route::get('/courses', [UserCourseController::class,'index']);
      Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
+     Route::get('/mycourse', [MyCourseController::class,'index']);
+     Route::get('/mycourse/{slug}', [MyCourseController::class,'show'])->name('mycourse.show');
  });
 
 });

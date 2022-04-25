@@ -51,8 +51,8 @@ Edit Materi
                             </div>
                         @enderror
                         <label>Link Video</label>
-                        <input type="text" name="link_video" id="link_video" class="form-control @error('link_video') is-invalid @enderror" value="{{ $course->link}}" />
-                        @error('link_video')
+                        <input type="text" name="link" id="link" class="form-control @error('link') is-invalid @enderror" value="{{ $course->link}}" />
+                        @error('link')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>

@@ -21,11 +21,6 @@
                     </div>
                     <br>
                     </div>
-                    <div class="col-lg-4 text-center">
-                        <img src="{{ asset('materiimage/' . $item->image) }}" alt="" height="250">
-                        <h4 class="mt-2">Rp{{ $item->price->paid }}</h4>
-                        <button class="btn btn-primary"><i class="fa fa-cart"> Add to Cart</i></button>
-                    </div>
                 </div>
             @endforeach
         </div>

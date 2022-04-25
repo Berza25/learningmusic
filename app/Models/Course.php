@@ -20,4 +20,11 @@ class Course extends Model
     {
         return $this->belongsTo(Price::class);
     }
+
+    public function mycourse()
+    {
+        return $this->hasMany(MyCourse::class);
+    }
 }
+
+

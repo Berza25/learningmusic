@@ -108,10 +108,10 @@ class CourseController extends Controller
             'subject'=> 'mimes:pdf|max:10000',
             'level_id'=> 'required',
             'price_id'=> 'required',
-            'link_video'=> 'required',
+            'link'=> 'required',
             'description'=> 'required',
         ]);
-
+        
         $cour=$request->all();
         if ($file = $request->file('subject')) {
             File::delete('foldermateri/'.$course->subject);
