@@ -45,6 +45,7 @@ class CartController extends Controller
         $user=Auth::user()->id;
         $no_invoice=rand(0,1000000);
         $status_cart='cart';
+
         $cart=Cart::create([
             'course_id' => $request->course_id,
             'user_id' => $user,

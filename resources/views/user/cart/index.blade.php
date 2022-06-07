@@ -9,50 +9,63 @@
         </header>
         <div class="row">
             <div class="col-lg-8">
-                <table class="table table-responsive">
-                    <thead>
-                        <th>
-                            Item
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </thead>
-                    <tbody>
-                        @forelse($carts as $item)
-                        <tr>
-                            <td>
-                                {{ $item->course->title }}
-                            </td>
-                            <td>
-                                {{ $item->total }}
-                            </td>
-                            <td>
-                                <form action="{{route('cart.destroy', $item->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="dropdown-item btn"><i class="fa fa-trash"></i> Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="3">
-                                Tidak Ada Item
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                <div class="card bg-grey">
+                    <table class="table table-responsive table-borderless">
+                        <thead>
+                            <th class="text-center" colspan="2">
+                                Item
+                            </th>
+                            <th class="text-center">
+                                Price
+                            </th>
+                            <th class="text-center">
+                                Action
+                            </th>
+                        </thead>
+                        <tbody>
+                            @forelse($carts as $item)
+                            <tr>
+                                <td align="center">
+                                    <img src="{{ asset('materiimage/' . $item->course->image) }}" alt="" height="100">
+                                </td>
+                                <td align="left">
+                                    {{ $item->course->title }}
+                                </td>
+                                <td align="center">
+                                    Rp{{ number_format($item->total,0,',','.') }}
+                                </td>
+                                <td align="center">
+                                    <form action="{{route('cart.destroy', $item->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="btn-primary btn-sm btn"> Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="3">
+                                    Tidak Ada Item
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-lg-4 text-center">
-                <img src="{{ asset('materiimage/' . $item->course->image) }}" alt="" height="250">
+                <div class="card pt-3">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h3>Total Harga</h3>
+                            <h4>Rp{{ number_format($item->sum('total'),0,',','.') }}</h4>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Checkout</button>
+                    </div>
+                </div>
+                {{-- <img src="{{ asset('materiimage/' . $item->course->image) }}" alt="" height="250"> --}}
                 {{-- <form action="{{route('cart.checkout')}}" method="POST"> --}}
                     {{-- @csrf --}}
-                    <button type="submit" class="btn btn-primary">Checkout</button>
                 {{-- </form> --}}
             </div>
         </div>
