@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Middleware\HakAkses;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LevelController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
      Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
      Route::get('/mycourse', [MyCourseController::class,'index']);
      Route::get('/mycourse/{slug}', [MyCourseController::class,'show'])->name('mycourse.show');
+     Route::resource('/cart', CartController::class);
  });
 
 });

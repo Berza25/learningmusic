@@ -15,6 +15,7 @@
                     </a>
                     <h3 class="mt-5">{{ $item->title }}</h3>
                     <p>{{ $item->description }}</p>
+                    <h5 class="mt-2">Rp{{  number_format($item->price->paid,0,',','.') }}</h5>
                 </div>
             @endforeach
         </div>
