@@ -25,6 +25,11 @@ class Course extends Model
     {
         return $this->hasMany(MyCourse::class);
     }
+
+    public function detailcourse()
+    {
+        return $this->hasMany(DetailCourse::class);
+    }
 }
 
 

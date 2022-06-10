@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Level;
 use App\Models\Price;
 use App\Models\Course;
+use App\Models\DetailCourse;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -18,11 +19,13 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $levels=Level::get();
-        $prices=Price::get();
-        $materi=Course::with('level')->get();
+        $levels = Level::get();
+        $prices = Price::get();
+        $materi = Course::with('level', 'detailcourse')->get();
 
-        return view('admin.course.index',compact('levels','prices','materi'));
+        // dd($materi);
+
+        return view('admin.course.index', compact('levels', 'prices', 'materi'));
     }
 
     /**
@@ -45,28 +48,65 @@ class CourseController extends Controller
     {
         $this->validate($request,[
             'title' => 'required',
-            'subject' => 'required|mimes:pdf|max:10000',
             'level_id' => 'required',
             'price_id' => 'required',
-            'link_video' => 'required',
+            'addMoreInputFields.*.video' => 'required',
+            'fmateri' => 'required',
+            'fmateri.*' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg,gif|max:10000'
 
         ]);
-        $newSubject = date('YmdHis'). '-' . $request->title . '.' . $request->subject->extension();
+        // dd($request);
+
         $newImage = date('YmdHis'). '-' . $request->title . '.' . $request->image->extension();
-        $request->file('subject')->move(public_path('foldermateri'), $newSubject);
         $request->file('image')->move(public_path('materiimage'), $newImage);
-        $materi=Course::create([
+
+        $files = [];
+        if($request->hasfile('fmateri'))
+         {
+            foreach($request->file('fmateri') as $file)
+            {
+                $newSubject = time().rand(1,10000). '-' . $request->title . '.' . $file->extension();
+                $file->move(public_path('foldermateri'), $newSubject);
+                $files[] = $newSubject;
+            }
+         }
+
+        $materi = Course::create([
             'title' => $request->title,
-            'subject' => $newSubject,
             'level_id' => $request->level_id,
             'price_id' => $request->price_id,
-            'link' => $request->link_video,
             'description' => $request->description,
             'image' => $newImage,
             'slug' => Str::slug($request->title)
         ]);
+
+
+
+        // $file = new DetailCourse();
+        // $file->course_id = $materi->id;
+        // $file->fmateri = $files;
+        // $file->save();
+
+        // $vid = [];
+
+        foreach ($request->addMoreInputFields as $key => $value) {
+            $vid[] = $value;
+        }
+
+        $detailcourse = new DetailCourse();
+        $detailcourse->course_id = $materi->id;
+        $detailcourse->fmateri=json_encode($files);
+        $detailcourse->video = json_encode($vid);
+        $detailcourse->save();
+
+        // dd($detailcourse);
+        //     'course_id' => $materi->id,
+        //     'fmateri' => $files,
+        //     'video' => $vid
+        // ]);
+
         return redirect()->back();
     }
 
@@ -111,7 +151,7 @@ class CourseController extends Controller
             'link'=> 'required',
             'description'=> 'required',
         ]);
-        
+
         $cour=$request->all();
         if ($file = $request->file('subject')) {
             File::delete('foldermateri/'.$course->subject);
