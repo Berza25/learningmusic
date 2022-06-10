@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\MyCourse;
 use App\Models\UserCourse;
 use Illuminate\Http\Request;
@@ -39,7 +40,17 @@ class MyCourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user=Auth::user()->id;
+        $cart=Cart::where('user_id', $user)->get();
+        foreach($cart as $item){
+            $courseid[]=$item->course_id;
+        }
+        $course=MyCourse::create([
+            'course_id' => $courseid,
+            'user_id'=> $user
+        ]);
+        Cart::where('user_id', $user)->update(['status_cart' => 'checkout']);
+        return redirect()->back();
     }
 
     /**
