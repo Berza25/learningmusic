@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card bg-grey">
-                        <table class="table table-responsive table-borderless">
+                        <table class="table table-borderless">
                             <thead>
                                 <th class="text-center" colspan="2">
                                     Item
@@ -61,7 +61,9 @@
                                 @csrf
                             <div class="text-center">
                                 <h3>Total Harga</h3>
-                                <h4>Rp{{ number_format($item->sum('total'),0,',','.') }}</h4>
+                                {{-- @foreach ($sumtot as $sumt) --}}
+                                    <h4>Rp{{ number_format($sumtot,0,',','.') }}</h4>
+                                {{-- @endforeach --}}
                             </div>
                             <button type="submit" class="btn btn-primary">Checkout</button>
                         </form>
@@ -73,7 +75,7 @@
                     {{-- </form> --}}
                 </div>
             </div>
-            @else 
+            @else
             <div class="text-center" data-aos="fade-up" data-aos-delay="200">
                 <p class="mt-5">Anda Tidak Memiliki Course, Silahkan Beli Course Terlebih Dahulu <a href="/courses">Klik Disini</a></p>
             </div>

@@ -15,9 +15,12 @@ class CartController extends Controller
      */
     public function index()
     {
-        $user=Auth::user()->id;
-        $carts=Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->get();
-        return view('user.cart.index', compact('carts'));
+        $user = Auth::user()->id;
+        $carts = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->get();
+
+        $sumtot = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->sum('total');
+
+        return view('user.cart.index', compact('carts', 'sumtot'));
     }
 
     /**

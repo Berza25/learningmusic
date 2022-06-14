@@ -23,7 +23,9 @@
                     <div class="col-lg-4 text-center">
                         <img src="{{ asset('materiimage/' . $item->image) }}" alt="" height="250">
                         <h4 class="mt-2">Rp{{ number_format($item->price->paid,0,',','.') }}</h4>
-                        {{-- @if(Cart::('user','course')->where('user_id',$user)->;) --}}
+                        {{-- @if(Cart::has('cart')) --}}
+                        <a href="{{ route('cart.index') }}" class="btn btn-primary"><i class="fa fa-cart"> Added to Cart</i></a>
+                        {{-- @endif --}}
                         <form action="{{ route('cart.store') }}" method="post">
                             @csrf
                             <input type="hidden" name="course_id" value="{{ $item->id }}">

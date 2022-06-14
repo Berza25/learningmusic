@@ -37,7 +37,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
  Route::group(['middleware' => 'hakakses:user,admin'], function(){
      Route::get('/courses', [UserCourseController::class,'index']);
      Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
-     Route::get('/mycourse', [MyCourseController::class,'index']);
+     Route::get('/mycourse', [MyCourseController::class,'index'])->name('mycourse.index');
      Route::post('/mycoursestore', [MyCourseController::class,'store'])->name('mycourse.store');
      Route::get('/mycourse/{slug}', [MyCourseController::class,'show'])->name('mycourse.show');
      Route::resource('/cart', CartController::class);

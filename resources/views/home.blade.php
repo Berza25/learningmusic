@@ -13,6 +13,8 @@
   <!-- Favicons -->
   <link href="{{ asset('flex/assets/img/favicon.png')}}" rel="icon">
   <link href="{{ asset('flex/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -49,12 +51,18 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#hero">Home</a></li>
           @if (auth()->user()->role=='admin')
-          <li><a class="nav-link scrollto active" href="/dashboard">Dashboard</a></li>
+          <li><a class="nav-link scrollto" href="/dashboard">Dashboard</a></li>
           @endif
           <li><a class="nav-link scrollto" href="/courses">Courses</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li class="nav-item scrollto">
+            <a class="nav-link" href="#">
+                <i class="fa fa-cart-shopping"></i>
+                <span class="badge badge-danger">15</span>
+            </a>
+          </li>
         </ul>
         <ul>
           </li>
@@ -133,9 +141,9 @@
 
     <!-- ======= Values Section ======= -->
     <section id="values" class="values">
-      
+
       <div class="container" data-aos="fade-up">
-        
+
         <header class="section-header">
           <p>View Course</p>
         </header>
@@ -150,8 +158,8 @@
           </div>
           @endforeach
         </div>
-      </div>   
-   
+      </div>
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
 

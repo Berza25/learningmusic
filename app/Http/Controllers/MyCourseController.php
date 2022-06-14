@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\MyCourse;
 use App\Models\UserCourse;
@@ -41,16 +42,28 @@ class MyCourseController extends Controller
     public function store(Request $request)
     {
         $user=Auth::user()->id;
-        $cart=Cart::where('user_id', $user)->get();
-        foreach($cart as $item){
-            $courseid[]=$item->course_id;
-        }
-        $course=MyCourse::create([
-            'course_id' => $courseid,
-            'user_id'=> $user
-        ]);
+        $cart=Cart::where(['user_id'=> $user, 'status_cart'=>'cart'])
+            ->select('course_id')
+            ->get();
+
+
+            $finalArray = array();
+            foreach($cart as $key => $value){
+                array_push($finalArray, array(
+                    'course_id' => $value['course_id'],
+                    'user_id' => $user,
+                    "created_at"=> Carbon::now(),
+                    "updated_at"=> Carbon::now()
+                ));
+            }
+
+        // dd($finalArray);
+
+        MyCourse::insert($finalArray);
+
         Cart::where('user_id', $user)->update(['status_cart' => 'checkout']);
-        return redirect()->back();
+
+        return redirect()->route('mycourse.index');
     }
 
     /**

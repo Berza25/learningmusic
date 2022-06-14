@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Level;
 use App\Models\Price;
 use App\Models\Course;
-use App\Models\DetailCourse;
 use Illuminate\Support\Str;
+use App\Models\DetailCourse;
+use App\Models\SubjectMatterCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -70,17 +72,22 @@ class CourseController extends Controller
                 $newSubject = time().rand(1,10000). '-' . $request->title . '.' . $file->extension();
                 $file->move(public_path('foldermateri'), $newSubject);
                 $files[] = $newSubject;
+                SubjectMatterCourse::create();
             }
          }
 
-        $materi = Course::create([
-            'title' => $request->title,
-            'level_id' => $request->level_id,
-            'price_id' => $request->price_id,
-            'description' => $request->description,
-            'image' => $newImage,
-            'slug' => Str::slug($request->title)
-        ]);
+         foreach($request->addMoreInputFields as $key => $values){
+
+         }
+
+        // $materi = Course::create([
+        //     'title' => $request->title,
+        //     'level_id' => $request->level_id,
+        //     'price_id' => $request->price_id,
+        //     'description' => $request->description,
+        //     'image' => $newImage,
+        //     'slug' => Str::slug($request->title)
+        // ]);
 
 
 
@@ -91,17 +98,27 @@ class CourseController extends Controller
 
         // $vid = [];
 
-        foreach ($request->addMoreInputFields as $key => $value) {
-            $vid[] = $value;
-        }
+        // foreach ($files as $itemfil) {
+        //     $fil[] = $itemfil;
+        // }
 
-        $detailcourse = new DetailCourse();
-        $detailcourse->course_id = $materi->id;
-        $detailcourse->fmateri=json_encode($files);
-        $detailcourse->video = json_encode($vid);
-        $detailcourse->save();
+        // $finalArray = array();
+        //     foreach($request->addMoreInputFields as $key => $values){
+        //         array_push($finalArray, array(
+        //             'video' => $values['video'],
+        //             "created_at"=> Carbon::now(),
+        //             "updated_at"=> Carbon::now()
+        //         ));
+        //     }
 
-        // dd($detailcourse);
+        // dd($finalArray);
+
+        // $detailcourse = new DetailCourse();
+        // $detailcourse->course_id = $materi->id;
+        // $detailcourse->fmateri=json_encode($files);
+        // $detailcourse->video = json_encode($vid);
+        // $detailcourse->save();
+
         //     'course_id' => $materi->id,
         //     'fmateri' => $files,
         //     'video' => $vid
