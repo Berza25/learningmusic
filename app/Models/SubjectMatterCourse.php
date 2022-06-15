@@ -10,4 +10,8 @@ class SubjectMatterCourse extends Model
     use HasFactory;
     protected $table = 'subject_matter_courses';
     protected $fillable = ['course_id', 'subject_matter'];
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

@@ -15,7 +15,7 @@ class CreateVideoCoursesTable extends Migration
     {
         Schema::create('video_courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('cascade');
             $table->string('video');
             $table->timestamps();
         });

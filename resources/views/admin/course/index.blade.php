@@ -46,17 +46,22 @@
                             <td>{{ $item->title }}</td>
                             <td>
                                 <ul>
-                                    @foreach($item->detailcourse as $dc)
-                                    @php $output = json_encode($dc, true); @endphp
-
-                                    {{ $output }}
-                                    {{-- {{ $dc->fmateri }} --}}
+                                    @foreach ($item->videocourse as $itemvideo)
+                                        
+                                    <li>{{ $itemvideo->video }}</li>
                                     @endforeach
                                 </ul>
                             </td>
                             <td>{{ $item->level->grade }}</td>
                             <td>{{ $item->price->paid }}</td>
-                            <td>{{ $item->link }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($item->subjectmattercourse as $itemsubject)
+                                        
+                                    <li>{{ $itemsubject->subject_matter }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>{{ $item->description }}</td>
                             <td><a href="{{ asset('materiimage/' . $item->image) }}" target="_blank"><img
                                         src="{{ asset('materiimage/' . $item->image) }}" width="50px" height="50px"
@@ -170,7 +175,7 @@
                                 <th>Action</th>
                             </tr>
                             <tr>
-                                <td><input type="text" name="addMoreInputFields[0][video]" placeholder="Enter Link Video"
+                                <td><input type="text" name="video[]" placeholder="Enter Link Video"
                                         class="form-control" />
                                 </td>
                                 <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add
@@ -227,8 +232,7 @@
         var i = 0;
         $("#dynamic-ar").click(function() {
             ++i;
-            $("#dynamicAddRemove").append('<tr><td><input type="text" name="addMoreInputFields[' + i +
-                '][video]" placeholder="Enter subject" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            $("#dynamicAddRemove").append('<tr><td><input type="text" name="video[]" placeholder="Enter subject" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
         });
         $(document).on('click', '.remove-input-field', function() {

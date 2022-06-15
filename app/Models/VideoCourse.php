@@ -11,4 +11,8 @@ class VideoCourse extends Model
 
     protected $table = 'video_courses';
     protected $fillable = ['course_id','video'];
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

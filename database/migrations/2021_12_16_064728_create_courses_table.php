@@ -18,8 +18,6 @@ class CreateCoursesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->string('slug');
-            $table->string('subject');
-            $table->string('link');
             $table->string('description');
             $table->string('image');
             $table->foreignId('price_id')->constrained('prices')->onDelete('restrict')->onUpdate('cascade');

@@ -9,7 +9,7 @@ class Course extends Model
 {
     use HasFactory;
     protected $table="courses";
-    protected $fillable=['title','slug','subject','level_id','price_id','link','description','image'];
+    protected $fillable=['title','slug','level_id','price_id','description','image'];
 
     public function level()
     {
@@ -26,9 +26,14 @@ class Course extends Model
         return $this->hasMany(MyCourse::class);
     }
 
-    public function detailcourse()
+    public function videocourse()
     {
-        return $this->hasMany(DetailCourse::class);
+        return $this->hasMany(VideoCourse::class);
+    }
+
+    public function subjectmattercourse()
+    {
+        return $this->hasMany(SubjectMatterCourse::class);
     }
 }
 

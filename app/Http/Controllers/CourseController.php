@@ -9,6 +9,7 @@ use App\Models\Course;
 use Illuminate\Support\Str;
 use App\Models\DetailCourse;
 use App\Models\SubjectMatterCourse;
+use App\Models\VideoCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -23,7 +24,7 @@ class CourseController extends Controller
     {
         $levels = Level::get();
         $prices = Price::get();
-        $materi = Course::with('level', 'detailcourse')->get();
+        $materi = Course::with('level', 'videocourse','subjectmattercourse')->get();
 
         // dd($materi);
 
@@ -52,7 +53,8 @@ class CourseController extends Controller
             'title' => 'required',
             'level_id' => 'required',
             'price_id' => 'required',
-            'addMoreInputFields.*.video' => 'required',
+            'video' => 'required',
+            'video.*' => 'required',
             'fmateri' => 'required',
             'fmateri.*' => 'required',
             'description' => 'required',
@@ -64,30 +66,34 @@ class CourseController extends Controller
         $newImage = date('YmdHis'). '-' . $request->title . '.' . $request->image->extension();
         $request->file('image')->move(public_path('materiimage'), $newImage);
 
-        $files = [];
+        $materi = Course::create([
+            'title' => $request->title,
+            'level_id' => $request->level_id,
+            'price_id' => $request->price_id,
+            'description' => $request->description,
+            'image' => $newImage,
+            'slug' => Str::slug($request->title)
+        ]);
         if($request->hasfile('fmateri'))
          {
             foreach($request->file('fmateri') as $file)
             {
-                $newSubject = time().rand(1,10000). '-' . $request->title . '.' . $file->extension();
+                $newSubject = time().rand(1,10000). '-' . $request->title . '.' . $file->getClientOriginalName();
                 $file->move(public_path('foldermateri'), $newSubject);
-                $files[] = $newSubject;
-                SubjectMatterCourse::create();
-            }
-         }
+                $masukfile = new SubjectMatterCourse();
+                $masukfile->subject_matter= $newSubject;
+                $masukfile->course_id = $materi->id;
+                $masukfile->save();
+}
+        }
 
-         foreach($request->addMoreInputFields as $key => $values){
+        foreach($request->video as $itemvid){
+            $masukvideo = new VideoCourse();
+            $masukvideo->video = $itemvid;
+            $masukvideo->course_id = $materi->id;
+            $masukvideo->save();
+        }
 
-         }
-
-        // $materi = Course::create([
-        //     'title' => $request->title,
-        //     'level_id' => $request->level_id,
-        //     'price_id' => $request->price_id,
-        //     'description' => $request->description,
-        //     'image' => $newImage,
-        //     'slug' => Str::slug($request->title)
-        // ]);
 
 
 

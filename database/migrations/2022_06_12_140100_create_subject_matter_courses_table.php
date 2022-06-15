@@ -15,7 +15,7 @@ class CreateSubjectMatterCoursesTable extends Migration
     {
         Schema::create('subject_matter_courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('cascade');
             $table->string('subject_matter');
             $table->timestamps();
         });

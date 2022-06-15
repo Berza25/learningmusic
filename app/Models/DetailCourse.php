@@ -12,8 +12,4 @@ class DetailCourse extends Model
     protected $table = 'detail_courses';
     protected $fillable = ['course_id', 'fmateri', 'video'];
 
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
 }
