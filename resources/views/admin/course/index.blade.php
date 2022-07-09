@@ -26,7 +26,7 @@
     @endif
     <div class="card shadow mb-4">
         <div class="card-body">
-            <table class="table table-responsive table-hover" id="myTable">
+            <table class="table table-hover" id="myTable">
                 <thead>
                     <th>No.</th>
                     <th>Title</th>
@@ -47,7 +47,7 @@
                             <td>
                                 <ul>
                                     @foreach ($item->videocourse as $itemvideo)
-                                        
+
                                     <li>{{ $itemvideo->video }}</li>
                                     @endforeach
                                 </ul>
@@ -57,7 +57,7 @@
                             <td>
                                 <ul>
                                     @foreach ($item->subjectmattercourse as $itemsubject)
-                                        
+
                                     <li>{{ $itemsubject->subject_matter }}</li>
                                     @endforeach
                                 </ul>

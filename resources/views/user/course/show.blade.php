@@ -25,7 +25,7 @@
                     <div class="col-lg-4 text-center">
                         <img src="{{ asset('materiimage/' . $item->image) }}" alt="" height="250">
                         <h4 class="mt-2">Rp{{ number_format($item->price->paid,0,',','.') }}</h4>
-                        @foreach ($cart as $key => $value)
+                        {{-- @foreach ($cart as $key => $value)
                             @foreach ($idcor as $key => $idco)
                                 @if ($value['course_id'] == $key)
                                     {{ $idcort = $idco }}
@@ -41,8 +41,15 @@
                                     @endif
                                 @endif
                             @endforeach
-                        @endforeach
+                        @endforeach --}}
                         
+                        <a href="{{ route('cart.index') }}" class="btn btn-primary"><i class="fa fa-cart"> Added to Cart</i></a>
+                        <form action="{{ route('cart.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="course_id" value="{{ $item->id }}">
+                            <input type="hidden" name="total" value="{{ $item->price->paid }}">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-cart"> Add to Cart</i></button>
+                        </form>
                     </div>
                 </div>
             @endforeach

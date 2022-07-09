@@ -72,9 +72,14 @@ class MyCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $data=MyCourse::with('user', 'course')->where('slug', $slug)->get();
+        $user = Auth::user()->id;
+        $data = MyCourse::findOrFail($id)
+                        ->with('user', 'course')
+                        ->where('user_id', $user)
+                        ->get();
+        // dd($data);
         return view('user.mycourse.show', compact('data'));
     }
 

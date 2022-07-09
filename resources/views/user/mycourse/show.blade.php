@@ -5,18 +5,25 @@
         <div class="container" data-aos="fade-up">
             @foreach ($data as $item)
                 <header class="section-header">
-                    <p>{{ $item->title }}</p>
+                    <p>{{ $item->course->title }}</p>
                 </header>
                 <div class="row">
                     <div class="col-lg-8">
                         <h1>Description</h1>
-                        <p>{{ $item->description }}</p>
+                        <p>{{ $item->course->description }}</p>
                         <br>
                     <div class="media">
                         <div class="media-body">
-                            {{-- <iframe width="560" height="315" src={{ $item->link + "&output=embed" }} frameborder="0" allowfullscreen></iframe> --}}
-                            <iframe width="560" height="315" src={{ $item->link }} frameborder="0" allowfullscreen></iframe>
-                            {!! $item->link !!}
+                            @foreach ($item->course->subjectmattercourse as $itemsubject)
+                                {{-- <ul>
+                                    <li>{{ $itemsubject->subject_matter }}</li>
+                                </ul> --}}
+                                <iframe src="{{ asset('foldermateri/'. $itemsubject->subject_matter) }}" frameborder="0"></iframe>
+                            @endforeach
+                            @foreach ($item->course->videocourse as $itemvideo)
+                            <iframe width="560" height="315" src={{ $itemvideo->video }} frameborder="0" allowfullscreen></iframe>
+                            @endforeach
+                            {{-- {!! $item->link !!} --}}
                         </div>
                     </div>
                     <br>
