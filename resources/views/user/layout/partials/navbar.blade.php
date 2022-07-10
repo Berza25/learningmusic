@@ -8,9 +8,9 @@
         <li><a class="nav-link scrollto" href="/mycourse">My Course</a></li>
         <li><a class="nav-link scrollto" href="#about">About</a></li>
         <li class="nav-item scrollto">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('cart.index') }}">
               <i class="fas fa-shopping-cart"></i>
-              <span class="badge badge-danger">15</span>
+              <span class="badge badge-danger"></span>
             </a>
         </li>
         <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
