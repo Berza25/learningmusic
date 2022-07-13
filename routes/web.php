@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\CartController;
 use App\Http\Middleware\HakAkses;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\UserCourseController;
 
@@ -20,9 +22,7 @@ use App\Http\Controllers\UserCourseController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class,'index']);
 Auth::routes();
 Route::group(['middleware'=> 'auth'], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

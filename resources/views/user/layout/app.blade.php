@@ -8,6 +8,7 @@
 </head>
 <body>
     @include('user.layout.partials.header')
+    @yield('section')
     <main id="main">
         <section>
             <div class="container">
