@@ -94,28 +94,6 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <label>Subject Matter</label>
-                        <div class="hdtuto input-group lst increment">
-                            <input type="file" name="fmateri[]" class="myfrm form-control">
-                            <div class="input-group-btn">
-                                <button class="btn btn-success" type="button"><i
-                                        class="fldemo glyphicon glyphicon-plus"></i>Add</button>
-                            </div>
-                        </div>
-                        <div class="clone hide">
-                            <div class="hdtuto input-group" style="margin-top:10px">
-                                <input type="file" name="fmateri[]" class="myfrm form-control">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-danger" type="button"><i
-                                            class="fldemo glyphicon glyphicon-remove"></i> Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                        @error('subject')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
                         <label>Level</label>
                         <select class="form-control level @error('level_id') is-invalid @enderror" height="100%"
                             value="{{ old('level_id') }}" name="level_id">
@@ -151,25 +129,6 @@
                             </div>
                         @enderror
 
-                        <table class="table table-borderedless" id="dynamicAddRemove">
-                            <tr>
-                                <th>Link Video</th>
-                                <th>Action</th>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="video[]" placeholder="Enter Link Video"
-                                        class="form-control" />
-                                </td>
-                                <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add
-                                        Subject</button></td>
-                            </tr>
-                        </table>
-                        @error('link')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
-
                         <label>Description</label>
                         <input type="text" name="description" id="description"
                             class="form-control @error('description') is-invalid @enderror"
@@ -199,28 +158,6 @@
     </div>
 @endsection
 @push('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".btn-success").click(function() {
-                var lsthmtl = $(".clone").html();
-                $(".increment").after(lsthmtl);
-            });
-            $("body").on("click", ".btn-danger", function() {
-                $(this).parents(".hdtuto").remove();
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        var i = 0;
-        $("#dynamic-ar").click(function() {
-            ++i;
-            $("#dynamicAddRemove").append('<tr><td><input type="text" name="video[]" placeholder="Enter subject" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
-            );
-        });
-        $(document).on('click', '.remove-input-field', function() {
-            $(this).parents('tr').remove();
-        });
-    </script>
     <script>
         $(document).ready( function () {
             $('#myTable').DataTable();
