@@ -50,10 +50,6 @@ class CourseController extends Controller
             'title' => 'required',
             'level_id' => 'required',
             'price_id' => 'required',
-            'video' => 'required',
-            'video.*' => 'required',
-            'fmateri' => 'required',
-            'fmateri.*' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg,gif|max:10000'
 
@@ -110,10 +106,8 @@ class CourseController extends Controller
     {
         $request->validate([
             'title'=> 'required',
-            'subject'=> 'mimes:pdf|max:10000',
             'level_id'=> 'required',
             'price_id'=> 'required',
-            'link'=> 'required',
             'description'=> 'required',
         ]);
 
