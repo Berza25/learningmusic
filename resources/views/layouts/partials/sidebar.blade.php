@@ -20,13 +20,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/price" class="nav-link">
+                <a href="{{ route('price.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Price</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/level" class="nav-link">
+                <a href="{{ route('level.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Level</p>
                 </a>
@@ -35,6 +35,12 @@
                 <a href="{{ route('course.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Course</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('lesson.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lesson</p>
                 </a>
               </li>
             </ul>

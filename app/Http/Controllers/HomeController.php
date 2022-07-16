@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Course;
+use App\Models\MyCourse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -12,10 +15,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -24,7 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $kelas=Course::get();
+
+        $kelas = Course::get();
+
         return view('home', compact('kelas'));
     }
 }

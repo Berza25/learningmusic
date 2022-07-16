@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\UserCourseController;
@@ -22,25 +23,28 @@ use App\Http\Controllers\UserCourseController;
 |
 */
 
-Route::get('/', [WelcomeController::class,'index']);
+// Route::get('/', [WelcomeController::class,'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/courses', [UserCourseController::class,'index']);
+Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
 Auth::routes();
+
 Route::group(['middleware'=> 'auth'], function() {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
-    Route::resource('/level', LevelController::class);
+    Route::resource('/admin/level', LevelController::class);
+    Route::resource('/admin/lesson', LessonController::class);
     Route::resource('/admin/course', CourseController::class);
-    Route::resource('/price', PriceController::class);
+    Route::resource('/admin/price', PriceController::class);
  });
  Route::group(['middleware' => 'hakakses:user,admin'], function(){
-     Route::get('/courses', [UserCourseController::class,'index']);
-     Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
-     Route::get('/mycourse', [MyCourseController::class,'index'])->name('mycourse.index');
-     Route::post('/mycoursestore', [MyCourseController::class,'store'])->name('mycourse.store');
-     Route::get('/mycourse/{slug}', [MyCourseController::class,'show'])->name('mycourse.show');
-     Route::resource('/cart', CartController::class);
+    Route::resource('/mycourse', MyCourseController::class);
+    Route::post('/mycourse/{course_id}/rating', [MyCourseController::class, 'rating'])->name('mycourse.rating');
+    Route::get('/mycourse/lesson/{slug}', [LessonController::class,'usershow'])->name('lesson.user.show');
+    Route::get('/mycourse/{course_id}/lesson', [LessonController::class,'indexuser'])->name('lesson.user.index');
+    Route::resource('/cart', CartController::class);
  });
 
 });

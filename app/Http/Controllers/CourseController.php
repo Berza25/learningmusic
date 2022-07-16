@@ -7,9 +7,6 @@ use App\Models\Level;
 use App\Models\Price;
 use App\Models\Course;
 use Illuminate\Support\Str;
-use App\Models\DetailCourse;
-use App\Models\SubjectMatterCourse;
-use App\Models\VideoCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -24,7 +21,7 @@ class CourseController extends Controller
     {
         $levels = Level::get();
         $prices = Price::get();
-        $materi = Course::with('level', 'videocourse','subjectmattercourse')->get();
+        $materi = Course::with('level', 'price')->get();
 
         // dd($materi);
 
@@ -74,61 +71,6 @@ class CourseController extends Controller
             'image' => $newImage,
             'slug' => Str::slug($request->title)
         ]);
-        if($request->hasfile('fmateri'))
-         {
-            foreach($request->file('fmateri') as $file)
-            {
-                $newSubject = time().rand(1,10000). '-' . $request->title . '.' . $file->getClientOriginalName();
-                $file->move(public_path('foldermateri'), $newSubject);
-                $masukfile = new SubjectMatterCourse();
-                $masukfile->subject_matter= $newSubject;
-                $masukfile->course_id = $materi->id;
-                $masukfile->save();
-}
-        }
-
-        foreach($request->video as $itemvid){
-            $masukvideo = new VideoCourse();
-            $masukvideo->video = $itemvid;
-            $masukvideo->course_id = $materi->id;
-            $masukvideo->save();
-        }
-
-
-
-
-        // $file = new DetailCourse();
-        // $file->course_id = $materi->id;
-        // $file->fmateri = $files;
-        // $file->save();
-
-        // $vid = [];
-
-        // foreach ($files as $itemfil) {
-        //     $fil[] = $itemfil;
-        // }
-
-        // $finalArray = array();
-        //     foreach($request->addMoreInputFields as $key => $values){
-        //         array_push($finalArray, array(
-        //             'video' => $values['video'],
-        //             "created_at"=> Carbon::now(),
-        //             "updated_at"=> Carbon::now()
-        //         ));
-        //     }
-
-        // dd($finalArray);
-
-        // $detailcourse = new DetailCourse();
-        // $detailcourse->course_id = $materi->id;
-        // $detailcourse->fmateri=json_encode($files);
-        // $detailcourse->video = json_encode($vid);
-        // $detailcourse->save();
-
-        //     'course_id' => $materi->id,
-        //     'fmateri' => $files,
-        //     'video' => $vid
-        // ]);
 
         return redirect()->back();
     }
@@ -176,15 +118,6 @@ class CourseController extends Controller
         ]);
 
         $cour=$request->all();
-        if ($file = $request->file('subject')) {
-            File::delete('foldermateri/'.$course->subject);
-            $destinationPath = 'foldermateri/';
-            $profileMateri = date('YmdHis'). '-' . $request->title . '.' . $request->subject->extension();
-            $file->move($destinationPath, $profileMateri);
-            $cour['subject'] = "$profileMateri";
-        }else{
-            unset($cour['subject']);
-        }
 
         $course->update($cour);
         return redirect()->route('course.index');

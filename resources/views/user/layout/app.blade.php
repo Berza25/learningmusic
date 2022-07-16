@@ -16,6 +16,7 @@
             </div>
         </section>
     </main>
+    @include('user.layout.partials.footer')
     @include('user.layout.partials.javascript')
 </body>
 </html>

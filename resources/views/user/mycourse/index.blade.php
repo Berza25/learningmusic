@@ -14,7 +14,7 @@
                         <img src="{{ asset('materiimage/' . $item->course->image) }}" class="img-fluid" alt="">
                     </a>
                     <h3 class="mt-5">{{ $item->course->title }}</h3>
-                    <p>{{ $item->course->description }}</p>
+                    <p>{{ substr($item->course->description, 0, 100) }}</p>
                 </div>
             @empty
             <div class="text-center" data-aos="fade-up" data-aos-delay="200">

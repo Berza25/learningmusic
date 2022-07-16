@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VideoCourse;
+use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class VideoCourseController extends Controller
+class NavbarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,12 @@ class VideoCourseController extends Controller
      */
     public function index()
     {
-        //
+        $cart = [];
+        if (auth()->check()){
+            $cart = Cart::where('user_id', Auth::user()->id);
+        }
+
+        return view('user.layout.partials.navbar', compact('cart'));
     }
 
     /**
@@ -41,10 +47,10 @@ class VideoCourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\VideoCourse  $videoCourse
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(VideoCourse $videoCourse)
+    public function show($id)
     {
         //
     }
@@ -52,10 +58,10 @@ class VideoCourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\VideoCourse  $videoCourse
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(VideoCourse $videoCourse)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +70,10 @@ class VideoCourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\VideoCourse  $videoCourse
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VideoCourse $videoCourse)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +81,10 @@ class VideoCourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\VideoCourse  $videoCourse
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VideoCourse $videoCourse)
+    public function destroy($id)
     {
         //
     }

@@ -16,30 +16,21 @@ class UserCourseController extends Controller
     }
     public function show($slug)
     {
-        $data = Course::with('price', 'level', 'videocourse', 'subjectmattercourse')->where('slug', $slug)->get();
-        
-        foreach($data as $itemcourse){
-            $idcor[] = $itemcourse->id;
-        }
-        $st = Auth::user()->id;
-        $cart = Cart::where('user_id', $st)
-                ->where('status_cart', 'cart')
-                ->get();
-                
-        foreach($cart as $key => $value){
-            foreach($idcor as $key => $idc){
-                if($value['course_id'] == $key){
-                    $idcocart = $idc;
-                }
-            }
-        }
-        return view('user.course.show', compact('data', 'idcor', 'cart'));
-        
+        $data = Course::with('price', 'level')->where('slug', $slug)->get();
 
-    }
-    public function store(Request $request)
-    {
-        $data=Course::with('price', 'level')->where('slug', $slug)->get();
-        return view('user.course.show', compact('data'));
+        $cart = [];
+        if (auth()->check()) {
+            $cart = Cart::whereHas('course', function($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                // ->where('status_cart', 'cart')
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
+        // dd($cart);
+
+        return view('user.course.show', compact('data', 'cart'));
+
     }
 }

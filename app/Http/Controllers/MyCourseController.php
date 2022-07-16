@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Cart;
+use App\Models\Course;
 use App\Models\MyCourse;
 use App\Models\UserCourse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class MyCourseController extends Controller
     public function index()
     {
         $user=Auth::user()->id;
-        $materi=MyCourse::with('course','user')->where('user_id','=', $user)->get();
+        $materi = MyCourse::with('course','user')->where('user_id','=', $user)->get();
         return view('user.mycourse.index',compact('materi'));
     }
 
@@ -75,11 +76,11 @@ class MyCourseController extends Controller
     public function show($id)
     {
         $user = Auth::user()->id;
-        $data = MyCourse::findOrFail($id)
+        $data = MyCourse::where('id', $id)
                         ->with('user', 'course')
                         ->where('user_id', $user)
                         ->get();
-        // dd($data);
+
         return view('user.mycourse.show', compact('data'));
     }
 
@@ -115,5 +116,13 @@ class MyCourseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function rating($course_id, Request $request)
+    {
+        $course = Course::findOrFail($course_id);
+        $course->mycourse()->updateExistingPivot(auth()->id(), ['rating' => $request->get('rating')]);
+
+        return redirect()->back()->with('success', 'Thank you for rating.');
     }
 }

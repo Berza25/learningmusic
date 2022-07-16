@@ -30,10 +30,8 @@
                 <thead>
                     <th>No.</th>
                     <th>Title</th>
-                    <th>Subject Matter</th>
                     <th>Level</th>
                     <th>Price</th>
-                    <th>Link Video</th>
                     <th>Description</th>
                     <th>Images</th>
                     </th>
@@ -44,24 +42,8 @@
                     <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->title }}</td>
-                            <td>
-                                <ul>
-                                    @foreach ($item->videocourse as $itemvideo)
-
-                                    <li>{{ $itemvideo->video }}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
                             <td>{{ $item->level->grade }}</td>
                             <td>{{ $item->price->paid }}</td>
-                            <td>
-                                <ul>
-                                    @foreach ($item->subjectmattercourse as $itemsubject)
-
-                                    <li>{{ $itemsubject->subject_matter }}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
                             <td>{{ $item->description }}</td>
                             <td><a href="{{ asset('materiimage/' . $item->image) }}" target="_blank"><img
                                         src="{{ asset('materiimage/' . $item->image) }}" width="50px" height="50px"
