@@ -77,7 +77,7 @@ class MyCourseController extends Controller
     {
         $user = Auth::user()->id;
         $data = MyCourse::where('id', $id)
-                        ->with('user', 'course')
+                        ->with('user', 'course', 'course.lesson')
                         ->where('user_id', $user)
                         ->get();
 

@@ -16,21 +16,24 @@ class UserCourseController extends Controller
     }
     public function show($slug)
     {
-        $data = Course::with('price', 'level')->where('slug', $slug)->get();
+        $data = Course::with('price', 'level', 'lesson', 'cart')->where('slug', $slug)->get();
 
-        $cart = [];
-        if (auth()->check()) {
-            $cart = Cart::whereHas('course', function($query) {
-                    $query->where('user_id', Auth::user()->id);
-                })
-                // ->where('status_cart', 'cart')
-                ->orderBy('id', 'desc')
-                ->get();
-        }
+        // $cart = [];
+        // if (auth()->check()) {
+        //     $cart = Cart::whereHas('course', function($query) {
+        //             $query->where('user_id', Auth::user()->id);
+        //         })
+        //         ->where('status_cart', 'checkout')
+        //         ->orderBy('id', 'desc')
+        //         ->get();
+        // }
+        // $cart = Cart::with('course')
+        //             ->where('user_id', Auth::user()->id)
+        //             ->get();
 
         // dd($cart);
 
-        return view('user.course.show', compact('data', 'cart'));
+        return view('user.course.show', compact('data'));
 
     }
 }

@@ -15,7 +15,7 @@
                 <li class="nav-item scrollto">
                     <a class="nav-link" href="{{ route('cart.index') }}">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge badge-danger"></span>
+                        <span class="badge badge-danger">{{ $daftarCart->where('user_id', auth()->user()->id)->count() }}</span>
                     </a>
                 </li>
                 <li>

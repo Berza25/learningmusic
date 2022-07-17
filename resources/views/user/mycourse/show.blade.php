@@ -28,7 +28,7 @@
                         <a href="{{ route('lesson.user.index', $item->course->id) }}" class="btn btn-primary btn-block">Start</a>
                         <br>
                         <br>
-                        <h4>Rating: {{ $item->course->rating }} / 5</h4>
+                        <h4>Rating: {{ $item->rating }} / 5</h4>
                         <small>Rate the course:</small>
                         <form
                             style="
