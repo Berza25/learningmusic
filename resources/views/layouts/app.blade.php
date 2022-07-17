@@ -91,8 +91,8 @@
   @include('layouts.partials.footer')
 </div>
 <!-- ./wrapper -->
-
 <!-- REQUIRED SCRIPTS -->
 @include('layouts.partials.javascript')
+@include('sweetalert::alert')
 </body>
 </html>

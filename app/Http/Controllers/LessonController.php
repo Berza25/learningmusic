@@ -8,6 +8,8 @@ use App\Models\MyCourse;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LessonController extends Controller
 {
@@ -26,7 +28,11 @@ class LessonController extends Controller
 
     public function indexuser($course_id)
     {
-        $lesson = Lesson::with('course')->where('course_id', $course_id)->get();
+        $lesson = MyCourse::with('course', 'course.lesson')
+                        ->where('course_id', $course_id)
+                        ->where('user_id', Auth::user()->id)
+                        ->get();
+        // dd($lesson);
 
         return view('user.lesson.index', compact('lesson'));
     }
@@ -76,7 +82,7 @@ class LessonController extends Controller
             ]);
         }
 
-
+        Alert::toast('Data Berhasil Ditambah', 'success');
         return redirect()->back();
     }
 
@@ -106,7 +112,8 @@ class LessonController extends Controller
      */
     public function edit(Lesson $lesson)
     {
-        //
+        $courses = Course::get();
+        return view('admin.lesson.edit', compact('courses', 'lesson'));
     }
 
     /**
@@ -118,7 +125,30 @@ class LessonController extends Controller
      */
     public function update(Request $request, Lesson $lesson)
     {
-        //
+        $this->validate($request,[
+            'course_id' => 'required',
+            'title' => 'required',
+            'subject_matter' => 'nullable|mimes:pdf|max:10000',
+            'embed_id' => 'nullable|string',
+
+        ]);
+
+        $less=$request->all();
+
+        if ($sub = $request->file('subject_matter')) {
+            File::delete('foldermateri/'.$lesson->subject_matter);
+            $destinationPath = 'foldermateri/';
+            $profileImage = date('Ymd'). '-' . $request->title . '.' . $request->subject_matter->extension();
+            $sub->move($destinationPath, $profileImage);
+            $less['subject_matter'] = "$profileImage";
+        }else{
+            unset($less['subject_matter']);
+        }
+
+        $lesson->update($less);
+
+        Alert::toast('Data Berhasil Ditambah', 'success');
+        return redirect()->route('lesson.index');
     }
 
     /**
@@ -129,6 +159,9 @@ class LessonController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        //
+        $lesson->delete();
+        File::delete('foldermateri/'.$lesson->subject_matter);
+        Alert::toast('Data Berhasil Dihapus', 'warning');
+        return redirect()->back();
     }
 }

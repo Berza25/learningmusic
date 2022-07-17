@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Price;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PriceController extends Controller
 {
@@ -40,10 +41,17 @@ class PriceController extends Controller
           $this->validate($request,[
             'price' => 'required'
         ]);
-        $price=Price::create([
-            'paid' => $request->price 
+        $price = Price::create([
+            'paid' => $request->price
         ]);
-        return redirect()->back();
+
+        if($price){
+            Alert::toast('Data Berhasil Ditambah', 'success');
+            return redirect()->back();
+        }else{
+            Alert::toast('warning', 'Data Gagal Ditambah');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -78,10 +86,11 @@ class PriceController extends Controller
     public function update(Request $request, Price $price)
     {
         // dd($request);
-        
-       $price->update([
-           'paid'=> $request->price 
-       ]);
+
+        $price->update([
+            'paid'=> $request->price
+        ]);
+        Alert::toast('Data Berhasil Diubah', 'success');
         return redirect()->route('admin.price.index');
     }
 
@@ -94,6 +103,7 @@ class PriceController extends Controller
     public function destroy(Price $price)
     {
         $price->delete();
+        Alert::toast('Data Berhasil Dihapus', 'warning');
         return redirect()->back();
     }
 }

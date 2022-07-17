@@ -18,5 +18,6 @@
     </main>
     @include('user.layout.partials.footer')
     @include('user.layout.partials.javascript')
+    @include('sweetalert::alert')
 </body>
 </html>

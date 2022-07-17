@@ -9,6 +9,7 @@ use App\Models\Course;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CourseController extends Controller
 {
@@ -68,7 +69,14 @@ class CourseController extends Controller
             'slug' => Str::slug($request->title)
         ]);
 
-        return redirect()->back();
+        if($materi){
+            Alert::toast('Data Berhasil Ditambah', 'success');
+            return redirect()->back();
+        }else{
+            Alert::toast('warning', 'Data Gagal Ditambah');
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -109,11 +117,24 @@ class CourseController extends Controller
             'level_id'=> 'required',
             'price_id'=> 'required',
             'description'=> 'required',
+            'image' => 'file|mimes:jpg,png,jpeg,gif,svg,jfif|max:2048',
         ]);
 
         $cour=$request->all();
 
+        if ($foto = $request->file('image')) {
+            File::delete('materiimage/'.$course->image);
+            $destinationPath = 'materiimage/';
+            $profileImage = date('Ymd'). '-' . $request->title . '.' . $request->image->extension();
+            $foto->move($destinationPath, $profileImage);
+            $cour['image'] = "$profileImage";
+        }else{
+            unset($cour['image']);
+        }
+
         $course->update($cour);
+
+        Alert::toast('Data Berhasil Diubah', 'success');
         return redirect()->route('course.index');
     }
 
@@ -126,8 +147,8 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-        File::delete('foldermateri/'.$course->subject);
-
+        File::delete('materiimage/'.$course->image);
+        Alert::toast('Data Berhasil Dihapus', 'warning');
         return redirect()->back();
     }
 }
