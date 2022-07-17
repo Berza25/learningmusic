@@ -11,7 +11,7 @@
                     <div class="col-md-8">
 
                         @if ( !empty($item->subject_matter) )
-                            <iframe width="700" height="300" src="{{ asset('foldermateri/'. $item->subject_matter) }}" frameborder="0"></iframe>
+                            <iframe width="700" height="100%" src="{{ asset('foldermateri/'. $item->subject_matter) }}" frameborder="0"></iframe>
                         @endif
                         @if ( !empty($item->embed_id) )
                         <div class="container">
