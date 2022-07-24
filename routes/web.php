@@ -10,6 +10,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\MyCourseController;
+use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\UserCourseController;
 
 /*
@@ -45,6 +46,10 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::get('/mycourse/lesson/{slug}', [LessonController::class,'usershow'])->name('lesson.user.show');
     Route::get('/mycourse/{course_id}/lesson', [LessonController::class,'indexuser'])->name('lesson.user.index');
     Route::resource('/cart', CartController::class);
+    Route::post('/course/komen', [UserCourseController::class, 'comment'])->name('course.comment');
+    Route::post('/lesson/check', [LessonController::class,'completion'])->name('lesson.user.completion');
+
+    Route::post('/sertif', [SertifikatController::class, 'process'])->name('sertif');
  });
 
 });

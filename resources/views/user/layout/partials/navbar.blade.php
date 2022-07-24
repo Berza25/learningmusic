@@ -14,8 +14,9 @@
                 <li><a class="nav-link scrollto" href="/mycourse">My Course</a></li>
                 <li class="nav-item scrollto">
                     <a class="nav-link" href="{{ route('cart.index') }}">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge badge-danger">{{ $daftarCart->where('user_id', auth()->user()->id)->count() }}</span>
+                        <i class="bi bi-cart3">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $daftarCart->where('user_id', auth()->user()->id)->count() }}</span>
+                        </i>
                     </a>
                 </li>
                 <li>

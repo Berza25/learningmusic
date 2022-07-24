@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\LessonStudent;
 use App\Models\MyCourse;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -99,7 +100,7 @@ class LessonController extends Controller
 
     public function usershow($slug)
     {
-        $data = Lesson::where('slug', $slug)->get();
+        $data = Lesson::with('lessonstudent', 'course')->where('slug', $slug)->get();
 
         return view('user.lesson.show', compact('data'));
     }
@@ -132,7 +133,7 @@ class LessonController extends Controller
             'embed_id' => 'nullable|string',
 
         ]);
-
+        $request->request->add(['slug' => Str::slug($request->title)]);
         $less=$request->all();
 
         if ($sub = $request->file('subject_matter')) {
@@ -162,6 +163,22 @@ class LessonController extends Controller
         $lesson->delete();
         File::delete('foldermateri/'.$lesson->subject_matter);
         Alert::toast('Data Berhasil Dihapus', 'warning');
+        return redirect()->back();
+    }
+
+    public function completion(Request $request)
+    {
+        $this->validate($request,[
+            'lesson_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        LessonStudent::create([
+            'lesson_id' => $request->lesson_id,
+            'user_id' => Auth::user()->id,
+            'status' => $request->status
+        ]);
+
         return redirect()->back();
     }
 }

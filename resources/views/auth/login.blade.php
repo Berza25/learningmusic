@@ -1,20 +1,20 @@
 @extends('layouts.apps')
+@section('title', 'Login')
 @section('content')
     <section class="vh-100">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4 text-black">
                     <div class="py-5 text-center ms-xl-4">
-                        <span class="h4 fw-bold mb-0">Berza Music Studio</span>
+                        <span class="h4 fw-bold mb-0">Music Learning Studio</span>
                     </div>
-
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                         <form method="POST" style="width: 23rem;" action="{{ route('login') }}">
                             @csrf
-                            <div class="row mb-4">
+                            <div class="row mb-2">
                                 <label class="form-label" for="form2Example18">Email address</label>
                                 <input id="email" type="email"
-                                    class="form-control form-control-lg @error('email') is-invalid @enderror" name="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -24,10 +24,10 @@
                                 @enderror
                             </div>
 
-                            <div class="row mb-4">
+                            <div class="row mb-2">
                                 <label class="form-label">Password</label>
                                 <input id="password" type="password"
-                                    class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                    class="form-control @error('password') is-invalid @enderror"
                                     name="password" required autocomplete="current-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -59,9 +59,12 @@
                             </div>
                         </form>
                     </div>
-                    <div class="row text-center">
+                    <div class="text-center d-flex justify-content-center">
                         <a class="btn btn-link" href="/">
                             {{ __('Return to Home') }}
+                        </a>
+                        <a class="btn btn-link" href="{{ route('register') }}">
+                            {{ __('Register') }}
                         </a>
                     </div>
                 </div>

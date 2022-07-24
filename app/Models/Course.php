@@ -41,6 +41,11 @@ class Course extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
 
 

@@ -25,6 +25,12 @@
                             @endforeach
                         </div>
                         <br>
+                        <h4>Progress</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{ round($persen) }}%;" aria-valuenow="{{ round($persen) }}" aria-valuemin="0" aria-valuemax="100">{{ round($persen) }}%</div>
+                        </div>
+                        {{ Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count() }} of {{ $dl }}
+                        <br>
                         <a href="{{ route('lesson.user.index', $item->course->id) }}" class="btn btn-primary btn-block">Start</a>
                         <br>
                         <br>

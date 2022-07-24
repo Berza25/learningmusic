@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\LessonStudent;
 use App\Models\MyCourse;
 use App\Models\UserCourse;
 use Illuminate\Http\Request;
@@ -20,7 +22,16 @@ class MyCourseController extends Controller
     public function index()
     {
         $user=Auth::user()->id;
-        $materi = MyCourse::with('course','user')->where('user_id','=', $user)->get();
+        $materi = MyCourse::with('course','user', 'course.lesson')->where('user_id','=', $user)->get();
+
+        // $dataprog = Auth::user()->lessonstudent()->count();
+        // $materi1 = MyCourse::with('course','user', 'course.lesson')->where([['user_id', Auth::user()->id], ['course_id', $idcor]])->get();
+        // foreach($materi1 as $itemmat){
+        //     $dl = $itemmat->course->lesson->count();
+        // }
+        // $persen = $dataprog/$dl*100;
+
+        // dd($dataprog);
         return view('user.mycourse.index',compact('materi'));
     }
 
@@ -81,7 +92,19 @@ class MyCourseController extends Controller
                         ->where('user_id', $user)
                         ->get();
 
-        return view('user.mycourse.show', compact('data'));
+        foreach($data as $item){
+            $idcor = $item->course->id;
+        }
+
+        $dataprog = Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count();
+        $materi = MyCourse::with('course','user', 'course.lesson')->where([['user_id', Auth::user()->id], ['course_id', $idcor]])->get();
+        foreach($materi as $itemmat){
+            $dl = $itemmat->course->lesson->count();
+        }
+        $persen = $dataprog/$dl*100;
+        // dd($persen);
+
+        return view('user.mycourse.show', compact('data', 'persen', 'dl'));
     }
 
     /**

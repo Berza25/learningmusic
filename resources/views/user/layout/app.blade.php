@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @include('user.layout.partials.head')
 </head>
 <body>
     @include('user.layout.partials.header')
     @yield('section')
     <main id="main">
-        <section>
+        @yield('breadcrumb')
+        {{-- <section class="breadcrumbs">
+            <div class="container">
+
+            <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Inner Page</li>
+            </ol>
+            <h2>Inner Page</h2>
+
+            </div>
+        </section> --}}
+        <section class="inner-page">
             <div class="container">
                 @yield('content')
             </div>
