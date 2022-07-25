@@ -154,6 +154,8 @@ class SertifikatController extends Controller
 // let's check now by running project. But before that we have to add Route.
 
         // Because I is for preview for browser.
-        $pdf->Output('D', $nama.'-'.$course.'.pdf', true);
+        return $pdf->Output('D', $nama.'-'.$course.'.pdf', true);
+
+        // return redirect()->back();
     }
 }
