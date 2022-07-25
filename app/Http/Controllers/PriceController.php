@@ -91,7 +91,7 @@ class PriceController extends Controller
             'paid'=> $request->price
         ]);
         Alert::toast('Data Berhasil Diubah', 'success');
-        return redirect()->route('admin.price.index');
+        return redirect()->route('price.index');
     }
 
     /**

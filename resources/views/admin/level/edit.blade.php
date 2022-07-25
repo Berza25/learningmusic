@@ -5,8 +5,8 @@ Edit Level
     {{ csrf_field() }}
     @method('PUT')
     <label>Level</label>
-    <input type="text" name="level" id="level" class="form-control @error('level') is-invalid @enderror" name="level" value="{{ $level->level }}" />
-    @error('level')
+    <input type="text" name="grade" id="grade" class="form-control @error('grade') is-invalid @enderror" name="grade" value="{{ $level->grade }}" />
+    @error('grade')
         <div class="alert alert-danger mt-2">
             {{ $message }}
         </div>

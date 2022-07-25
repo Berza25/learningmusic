@@ -8,7 +8,7 @@
                 class="btn btn-primary"><i class="fa fa-plus"> Input Materi Course</i></button>
         </div>
     </div>
-    @if (count($errors) > 0)
+    {{-- @if (count($errors) > 0)
         <div class="alert alert-danger">
             <strong>Sorry!</strong> There were more problems with your HTML input.<br><br>
             <ul>
@@ -23,7 +23,7 @@
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
+    @endif --}}
     <div class="card shadow mb-4">
         <div class="card-body">
             <table class="table table-hover" id="myTable">

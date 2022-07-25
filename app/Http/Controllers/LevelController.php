@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Level;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LevelController extends Controller
 {
@@ -13,7 +14,7 @@ class LevelController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $level = Level::get();
         return view('admin.level.index', compact('level'));
     }
@@ -43,6 +44,7 @@ class LevelController extends Controller
         $level=Level::create([
             'grade' => $request->level
         ]);
+        Alert::toast('Data Berhasil Ditambah', 'success');
         return redirect()->back();
     }
 
@@ -78,10 +80,11 @@ class LevelController extends Controller
     public function update(Request $request, Level $level)
     {
         $request->validate([
-            'level'=> 'required'
+            'grade'=> 'required'
         ]);
         $level->update($request->all());
-        return redirect()->route('admin.level.index');
+        Alert::toast('Data Berhasil Diubah', 'success');
+        return redirect()->route('level.index');
     }
 
     /**
@@ -93,6 +96,7 @@ class LevelController extends Controller
     public function destroy(Level $level)
     {
         $level->delete();
+        Alert::toast('Data Berhasil Dihapus', 'warning');
         return redirect()->back();
     }
 }

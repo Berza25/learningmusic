@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Course;
+use App\Models\MyCourse;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user()->id;
-        $cart = Cart::where('user_id', $user)->count();
-        dd($cart);
-        return view('user.layout.partials.navbar', compact('cart'));
+        $course = Course::count();
+        // dd($course);
+        $mycor = User::where('role', 'user')->count();
+
+        return view('admin.dashboard', compact('course', 'mycor'));
     }
 }

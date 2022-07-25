@@ -10,6 +10,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\MyCourseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\UserCourseController;
 
@@ -32,9 +33,7 @@ Auth::routes();
 
 Route::group(['middleware'=> 'auth'], function() {
 Route::group(['middleware' => 'hakakses:admin'], function(){
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::resource('/dashboard', DashboardController::class);
     Route::resource('/admin/level', LevelController::class);
     Route::resource('/admin/lesson', LessonController::class);
     Route::resource('/admin/course', CourseController::class);
