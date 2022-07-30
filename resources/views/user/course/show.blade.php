@@ -41,8 +41,11 @@
                             <h4 class="text-center mb-4 pb-2">Comments Section</h4>
                             @foreach ($item->comment()->where('parent', 0)->orderBy('created_at', 'desc')->get() as $itemcomment)
                             <div class="d-flex flex-start m-2">
-                                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('berzalogo.jpg') }}"
-                                    alt="avatar" width="65" height="65" />
+                                @if ($itemcomment->user->foto != null)
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/users/'. $itemcomment->user->foto) }}" alt="avatar" width="65" height="65" />
+                                @else
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images.png') }}" alt="avatar" width="65" height="65" />
+                                @endif
                                 <div class="flex-grow-1 flex-shrink-1">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="mb-1">
@@ -64,11 +67,12 @@
                                     </div>
                                     @foreach ($itemcomment->parents()->orderBy('created_at', 'desc')->get() as $parent)
                                     <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                            <img class="rounded-circle shadow-1-strong"
-                                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
-                                                alt="avatar" width="65" height="65" />
-                                        </a>
+                                        @if ($parent->user->foto != null)
+                                        <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/users/'. $parent->user->foto) }}" alt="avatar" width="65" height="65" />
+                                        @else
+                                        {{-- <figure class="rounded-circle shadow-1-strong me-3" data-initial="{{ $parent->user->name[0] }}">{{ $parent->user->name[0] }}</figure> --}}
+                                        <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images.png') }}" alt="avatar" width="65" height="65" />
+                                        @endif
                                         <div class="flex-grow-1 flex-shrink-1">
                                             <div>
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -91,18 +95,40 @@
                 </div>
                 <div class="col-lg-4 text-center">
                     <img src="{{ asset('materiimage/' . $item->image) }}" alt="" height="250">
+                    @if ($item->price->paid == 0)
+                    <h4>Free</h4>
+                    @else
                     <h4 class="mt-2">Rp{{ number_format($item->price->paid, 0, ',', '.') }}</h4>
+                    @endif
                     @if (auth()->check())
                         @if ($item->cart()->where('user_id', auth()->id())->where('status_cart', 'checkout')->where('course_id', $item->id)->count() == 1)
-                            <a href="{{ route('lesson.user.index', $item->id) }}" class="btn btn-primary">Start
-                                Lesson</a>
+                            <a href="{{ route('lesson.user.show', $les->slug) }}" class="btn btn-primary">Start Lesson</a>
                         @elseif (!$item->cart()->where('user_id', auth()->id())->where('status_cart', 'cart')->where('course_id', $item->id)->count() == 1)
+                            @if(auth()->user()->role == 'murid' || auth()->user()->role == 'admin' && $item->price->paid == 0)
+                                @if($item->mycourse()->where('user_id', auth()->id())->where('course_id', $item->id)->count() == 1)
+                                    <a href="{{ route('lesson.user.show', $les->slug) }}" class="btn btn-primary">Start Lesson</a>
+                                @elseif($item->price->paid == 0)
+                                <form action="{{ route('mycourse.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="course_id" value="{{ $item->id }}">
+                                    <button type="submit" class="btn btn-primary">Enroll </button>
+                                </form>
+                                @else
+                                <form action="{{ route('cart.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="course_id" value="{{ $item->id }}">
+                                    <input type="hidden" name="total" value="{{ $item->price->paid }}">
+                                    <button type="submit" class="btn btn-primary">Add to Cart </button>
+                                </form>
+                                @endif
+                            @else
                             <form action="{{ route('cart.store') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="course_id" value="{{ $item->id }}">
                                 <input type="hidden" name="total" value="{{ $item->price->paid }}">
                                 <button type="submit" class="btn btn-primary">Add to Cart </button>
                             </form>
+                            @endif
                         @else
                             <a href="{{ route('cart.index') }}" class="btn btn-primary">Added to Cart</a>
                         @endif

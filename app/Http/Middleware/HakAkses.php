@@ -19,6 +19,6 @@ class HakAkses
         if (auth()->user() && in_array(auth()->user()->role, $roles)) {
             return $next($request);
         }
-        return redirect('/home');
+        return redirect('/');
     }
 }

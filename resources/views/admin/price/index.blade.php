@@ -13,6 +13,7 @@
             <thead>
                 <th>No.</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th class="text-center">Aksi</th>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->paid }}</td>
+                    <td>{{ $item->status }}</td>
                     <td align="center">
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,6 +57,18 @@
                         <label>Price</label>
                         <input type="number" name="price" id="price" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" />
                         @error('price')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <br />
+                        <label>Status</label>
+                        <select name="status" class="form-control">
+                            <option value="" selected>Select Status</option>
+                            <option value="Free">Free</option>
+                            <option value="Paid">Paid</option>
+                        </select>
+                        @error('status')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>

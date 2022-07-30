@@ -11,6 +11,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-qzGZrcTXN0G7CzC-"></script>
     <!-- Vendor CSS Files -->
     <link href="{{ asset('flex') }}/assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="{{ asset('flex') }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

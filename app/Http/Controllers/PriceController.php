@@ -39,10 +39,12 @@ class PriceController extends Controller
     {
         // dd($request);
           $this->validate($request,[
-            'price' => 'required'
+            'price' => 'required',
+            'status' => 'required'
         ]);
         $price = Price::create([
-            'paid' => $request->price
+            'paid' => $request->price,
+            'status' => $request->status
         ]);
 
         if($price){
@@ -71,8 +73,10 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Price $price)
+    public function edit($id)
     {
+        $price = Price::find($id);
+        
         return view('admin.price.edit', compact('price'));
     }
 
@@ -88,7 +92,8 @@ class PriceController extends Controller
         // dd($request);
 
         $price->update([
-            'paid'=> $request->price
+            'paid'=> $request->price,
+            'status'=> $request->status
         ]);
         Alert::toast('Data Berhasil Diubah', 'success');
         return redirect()->route('price.index');

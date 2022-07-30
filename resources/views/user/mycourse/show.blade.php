@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h1>Description</h1>
-                        <p>{{ $item->course->description }}</p>
+                        <p style="align-content: justify">{{ $item->course->description }}</p>
                     </div>
                     <div class="col-md-4">
                         <h4>Lesson</h4>
@@ -31,7 +31,7 @@
                         </div>
                         {{ Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count() }} of {{ $dl }}
                         <br>
-                        <a href="{{ route('lesson.user.index', $item->course->id) }}" class="btn btn-primary btn-block">Start</a>
+                        <a href="{{ route('lesson.user.show', $les->slug) }}" class="btn btn-primary btn-block">Start</a>
                         <br>
                         <br>
                         <h4>Rating: {{ $item->rating }} / 5</h4>

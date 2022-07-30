@@ -2,8 +2,8 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <a href="/" class="logo d-flex align-items-center">
-        <img src="{{ asset('berzalogo.jpg') }}" alt="">
-        <span>Music Learning</span>
+        <img src="{{ asset('logo.png') }}" alt="">
+        <span class="text-dark">Berza Music Studio</span>
     </a>
     @include('user.layout.partials.navbar')
     </div>

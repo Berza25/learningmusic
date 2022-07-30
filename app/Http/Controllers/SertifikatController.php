@@ -105,6 +105,8 @@ class SertifikatController extends Controller
 
         $pdf->AddFont('Comic','','COMIC.php');
         $pdf->AddFont('Boldy','','Boldy.php');
+        $pdf->AddFont('poppins-regular','','Poppins Regular 400.php');
+        $pdf->AddFont('poppins-thin','','Poppins Thin 250.php');
 
         // to set font. This is compulsory
 
@@ -136,14 +138,14 @@ class SertifikatController extends Controller
         // Now let's change details an position
         // $pdf->Write(0.1, $nama);
         $pdf->SetFont('Boldy','','36');
-        $pdf->SetY(80);
+        $pdf->SetY(76);
         $pdf->Cell(0, 20, $nama, 0, 1, 'C');
 
        // let's bring another below it
 
         // Second details
-        $pdf->SetFont('comic','','16');
-        $pdf->SetY(110);
+        $pdf->SetFont('poppins-regular','','14');
+        $pdf->SetY(108);
         $pdf->Cell(0, 20, $course, 0, 1, 'C');
 
         // $pdf->SetXY(40, 60);

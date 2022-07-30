@@ -27,15 +27,15 @@ class RedirectIfAuthenticated
         //     }
         // }
         if (Auth::guard($guards)->check()) {
-            $role = Auth::user()->role; 
-        
+            $role = Auth::user()->role;
+
             switch ($role) {
               case 'admin':
                  return redirect('/dashboard');
                  break;
               case 'user':
-                 return redirect('/home');
-                 break; 
+                 return redirect('/');
+                 break;
             }
           }
 

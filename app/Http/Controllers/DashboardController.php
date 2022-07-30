@@ -17,7 +17,8 @@ class DashboardController extends Controller
         $course = Course::count();
         // dd($course);
         $mycor = User::where('role', 'user')->count();
+        $murid = User::where('role', 'murid')->count();
 
-        return view('admin.dashboard', compact('course', 'mycor'));
+        return view('admin.dashboard', compact('course', 'mycor', 'murid'));
     }
 }

@@ -1,5 +1,5 @@
 @extends('user.layout.app')
-@section('title', 'Courses')
+@section('title', 'Cart')
 @section('content')
 <section>
 
@@ -30,7 +30,7 @@
                                         <img src="{{ asset('materiimage/' . $item->course->image) }}" alt="" height="100">
                                     </td>
                                     <td align="left">
-                                        {{ $item->course->title }}
+                                        <a href="{{ route('courses.show', $item->course->slug) }}"> {{ $item->course->title }}</a>
                                     </td>
                                     <td align="center">
                                         Rp{{ number_format($item->total,0,',','.') }}
@@ -57,16 +57,16 @@
                 <div class="col-lg-4 text-center">
                     <div class="card pt-3">
                         <div class="card-body">
-                            <form action="{{ route('mycourse.store') }}" method="POST">
-                                @csrf
-                            <div class="text-center">
-                                <h3>Total Harga</h3>
-                                {{-- @foreach ($sumtot as $sumt) --}}
-                                    <h4>Rp{{ number_format($sumtot,0,',','.') }}</h4>
-                                {{-- @endforeach --}}
-                            </div>
-                            <button type="submit" class="btn btn-primary">Checkout</button>
-                        </form>
+                            {{-- <form action="{{ route('mycourse.store') }}" method="POST"> --}}
+                                {{-- @csrf --}}
+                                <div class="text-center">
+                                    <h3>Total Harga</h3>
+                                    {{-- @foreach ($sumtot as $sumt) --}}
+                                        <h4>Rp{{ number_format($sumtot,0,',','.') }}</h4>
+                                    {{-- @endforeach --}}
+                                </div>
+                                <button type="submit" id="pay-button" class="btn btn-primary">Checkout</button>
+                            {{-- </form> --}}
                         </div>
                     </div>
                     {{-- <img src="{{ asset('materiimage/' . $item->course->image) }}" alt="" height="250"> --}}
@@ -75,6 +75,42 @@
                     {{-- </form> --}}
                 </div>
             </div>
+            <script type="text/javascript">
+                // For example trigger on button clicked, or any time you need
+                var payButton = document.getElementById('pay-button');
+                payButton.addEventListener('click', function () {
+                    // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+                    window.snap.pay('{{$snapToken}}', {
+                    onSuccess: function(result){
+                        /* You may add your own implementation here */
+                        console.log(result);
+                        send_response_to_form(result);
+                    },
+                    onPending: function(result){
+                        /* You may add your own implementation here */
+                        console.log(result);
+                        send_response_to_form(result);
+                    },
+                    onError: function(result){
+                        /* You may add your own implementation here */
+                        console.log(result);
+                        send_response_to_form(result);
+                    },
+                    onClose: function(){
+                        /* You may add your own implementation here */
+                        alert('you closed the popup without finishing the payment');
+                    }
+                    })
+                });
+                function send_response_to_form(result){
+                    document.getElementById('json_callback').value = JSON.stringify(result);
+                    $('#submit_form').submit();
+                }
+                </script>
+            <form action="{{ route('cart.payment') }}" id="submit_form" method="POST">
+                @csrf
+                <input type="hidden" name="json" id="json_callback">
+            </form>
             @else
             <div class="text-center" data-aos="fade-up" data-aos-delay="200">
                 <p class="mt-5">Anda Tidak Memiliki Course, Silahkan Beli Course Terlebih Dahulu <a href="/courses">Klik Disini</a></p>

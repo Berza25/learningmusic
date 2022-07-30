@@ -56,6 +56,11 @@
                                 </div>
                                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                     @if(round(Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count()/$item->course->lesson->count()*100) == 100)
+
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ round(Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count()/$item->course->lesson->count()*100) }}%;" aria-valuenow="{{ round(Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count()/$item->course->lesson->count()*100) }}" aria-valuemin="0" aria-valuemax="100">{{ round(Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count()/$item->course->lesson->count()*100) }}%</div>
+                                    </div>
+                                    {{ Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count() }} of {{ $item->course->lesson->count() }}
                                     Download Sertifikat
                                     <form action="{{ route('sertif') }}" method="POST">
                                         @csrf
@@ -63,6 +68,7 @@
                                         <input type="hidden" name="level_course" value="{{ $item->course->level->grade }}">
                                         <button class="btn btn-primary" type="submit">Download</button>
                                     </form>
+
                                     @else
                                     <h4>Progress</h4>
                                     <div class="progress">

@@ -21,9 +21,9 @@
             <!-- small card -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>{{ $mycor }}</h3>
+                    <h3>{{ $murid }}</h3>
 
-                    <p>User Registrations</p>
+                    <p>Murid</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-user-plus"></i>
@@ -38,9 +38,9 @@
             <!-- small card -->
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>65</h3>
+                    <h3>{{ $mycor }}</h3>
 
-                    <p>Unique Visitors</p>
+                    <p>User</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-chart-pie"></i>

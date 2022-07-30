@@ -54,26 +54,15 @@ class MyCourseController extends Controller
     public function store(Request $request)
     {
         $user=Auth::user()->id;
-        $cart=Cart::where(['user_id'=> $user, 'status_cart'=>'cart'])
-            ->select('course_id')
-            ->get();
 
+        $this->validate($request,[
+            'course_id' => 'required',
+        ]);
 
-            $finalArray = array();
-            foreach($cart as $key => $value){
-                array_push($finalArray, array(
-                    'course_id' => $value['course_id'],
-                    'user_id' => $user,
-                    "created_at"=> Carbon::now(),
-                    "updated_at"=> Carbon::now()
-                ));
-            }
-
-        // dd($finalArray);
-
-        MyCourse::insert($finalArray);
-
-        Cart::where('user_id', $user)->update(['status_cart' => 'checkout']);
+        MyCourse::create([
+            'course_id' => $request->course_id,
+            'user_id' => $user
+        ]);
 
         return redirect()->route('mycourse.index');
     }
@@ -102,9 +91,10 @@ class MyCourseController extends Controller
             $dl = $itemmat->course->lesson->count();
         }
         $persen = $dataprog/$dl*100;
-        // dd($persen);
 
-        return view('user.mycourse.show', compact('data', 'persen', 'dl'));
+        $les = Lesson::with('course')->where('course_id', $idcor)->first();
+
+        return view('user.mycourse.show', compact('data', 'persen', 'dl', 'les'));
     }
 
     /**
