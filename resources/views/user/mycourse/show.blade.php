@@ -11,6 +11,7 @@
                     <div class="col-md-8">
                         <h1>Description</h1>
                         <p style="align-content: justify">{{ $item->course->description }}</p>
+                        <a href="{{ $item->course->meet }}" target="_blank" class="btn btn-secondary"><img src="{{ asset('meet.png') }}" width="20" height="20"> Meet</a>
                     </div>
                     <div class="col-md-4">
                         <h4>Lesson</h4>

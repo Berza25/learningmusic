@@ -33,7 +33,10 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/AppHelpers.php"
+            "app/Helpers/AppHelpers.php",
+            "app/Services/Midtrans.php",
+            "app/Services/CallbackService.php",
+            "app/Services/CreateSnapTokenService.php"
         ]
 
     },

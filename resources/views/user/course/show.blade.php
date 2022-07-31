@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h1>Description</h1>
-                    <p>{{ $item->description }}</p>
+                    <p>{!! $item->description !!}</p>
                     <br>
                     <h4>Lesson</h4>
                     <div class="list-group">

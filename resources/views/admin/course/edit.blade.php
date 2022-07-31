@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
-Edit Course
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h4>Edit Course</h4>
+    <div align="right" class="pt-1">
+        <a href="{{ route('course.index') }}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-8">
         <div class="card shadow">
@@ -47,15 +52,22 @@ Edit Course
                             {{ $message }}
                         </div>
                     @enderror
+                    <label>Link Meet</label>
+                    <input type="text" name="meet" id="meet" class="form-control @error('meet') is-invalid @enderror" value="{{ $course->meet }}" />
+                    @error('meet')
+                        <div class="alert alert-danger mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <label>Description</label>
-                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" value="{{ $course->description }}" />
+                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="summernote">{{ $course->description }}</textarea>
                     @error('description')
                         <div class="alert alert-danger mt-2">
                             {{ $message }}
                         </div>
                     @enderror
                     <br />
-                    <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+                    <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
                 </div>
             </div>
         </div>
@@ -81,5 +93,10 @@ Edit Course
         }
         reader.readAsDataURL(this.files[0]);
     });
+
+    $('#summernote').summernote({
+        height: 400
+    });
+
     </script>
 @endpush

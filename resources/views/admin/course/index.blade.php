@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Materi</h1>
+        <h1 class="h3 mb-0 text-gray-800">Course</h1>
         <div align="right" class="pt-1">
             <a href="" class="btn btn-success"><i class="fa fa-sync"></i></a>
             <button type="button" name="age" id="age" data-toggle="modal" data-target="#add_data_Modal"
-                class="btn btn-primary"><i class="fa fa-plus"> Input Materi</i></button>
+                class="btn btn-primary"><i class="fa fa-plus"> Input Course</i></button>
         </div>
     </div>
     @if (count($errors) > 0)
@@ -26,12 +26,13 @@
     @endif
     <div class="card shadow mb-4">
         <div class="card-body">
-            <table class="table table-hover" id="myTable">
+            <table class="table table-hover table-responsive" id="myTable">
                 <thead>
                     <th>No.</th>
                     <th>Title</th>
                     <th>Level</th>
                     <th>Price</th>
+                    <th>Link Meet</th>
                     <th>Description</th>
                     <th>Images</th>
                     </th>
@@ -44,6 +45,7 @@
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->level->grade }}</td>
                             <td>{{ $item->price->paid }}</td>
+                            <td>{{ $item->meet }}</td>
                             <td>{{ $item->description }}</td>
                             <td><a href="{{ asset('materiimage/' . $item->image) }}" target="_blank"><img
                                         src="{{ asset('materiimage/' . $item->image) }}" width="50px" height="50px"
@@ -74,6 +76,7 @@
             </table>
         </div>
     </div>
+
     <!-- Modals Tambah data -->
     <div id="add_data_Modal" class="modal fade">
         <div class="modal-dialog">
@@ -128,7 +131,13 @@
                                 {{ $message }}
                             </div>
                         @enderror
-
+                        <label>Link Meet</label>
+                        <input type="text" name="meet" class="form-control @error('meet') is-invalid @enderror" value="{{ old('meet') }}" />
+                        @error('meet')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         <label>Description</label>
                         <input type="text" name="description" id="description"
                             class="form-control @error('description') is-invalid @enderror"

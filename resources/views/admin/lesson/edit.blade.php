@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
-Edit Lesson
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h4>Edit Lesson</h4>
+    <div align="right" class="pt-1">
+        <a href="{{ route('lesson.index') }}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="card shadow">
@@ -49,7 +54,7 @@ Edit Lesson
                         </div>
                     @enderror
                     <br />
-                    <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+                    <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
                 </form>
             </div>
         </div>

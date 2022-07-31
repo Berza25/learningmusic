@@ -51,6 +51,7 @@ class CourseController extends Controller
             'title' => 'required',
             'level_id' => 'required',
             'price_id' => 'required',
+            'meet' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg,gif|max:10000'
 
@@ -64,6 +65,7 @@ class CourseController extends Controller
             'title' => $request->title,
             'level_id' => $request->level_id,
             'price_id' => $request->price_id,
+            'meet' => $request->meet,
             'description' => $request->description,
             'image' => $newImage,
             'slug' => Str::slug($request->title)
@@ -116,10 +118,12 @@ class CourseController extends Controller
             'title'=> 'required',
             'level_id'=> 'required',
             'price_id'=> 'required',
+            'meet'=> 'required',
             'description'=> 'required',
             'image' => 'file|mimes:jpg,png,jpeg,gif,svg,jfif|max:2048',
         ]);
 
+        $request->request->add(['slug' => Str::slug($request->title)]);
         $cour=$request->all();
 
         if ($foto = $request->file('image')) {
@@ -151,4 +155,5 @@ class CourseController extends Controller
         Alert::toast('Data Berhasil Dihapus', 'warning');
         return redirect()->back();
     }
+
 }

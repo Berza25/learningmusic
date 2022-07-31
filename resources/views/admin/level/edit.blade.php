@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
-Edit Level
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h4>Edit Level</h4>
+    <div align="right" class="pt-1">
+        <a href="{{ route('level.index') }}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
+    </div>
+</div>
 <form method="POST" id="insert_form" action="{{ route('level.update', $level->id) }}">
     {{ csrf_field() }}
     @method('PUT')
@@ -12,6 +17,6 @@ Edit Level
         </div>
     @enderror
     <br />
-    <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+    <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
 </form>
 @endsection
