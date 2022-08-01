@@ -86,6 +86,18 @@ class SertifikatController extends Controller
 
     public function process(Request $request)
     {
+        $nama = Auth::user()->name;
+        $course = $request->title_course;
+
+        $outputfile = public_path(). '/sertifikat/'.$nama.'-'.$course.'.pdf';
+
+        $this->fillPDF(public_path('sertifikat.pdf'), $nama, $course);
+
+        return response()->file($outputfile);
+    }
+
+    public function fillPDF($outputfile, $nama, $course)
+    {
         // $nama = "M. Rosyid Ridho";
         // $course = 'Piano Basic';
         // $outputfile = public_path('sertifikat.pdf');
@@ -96,9 +108,6 @@ class SertifikatController extends Controller
         // dd($request->all());
 
         $pdf = new Fpdi();
-
-        $nama = Auth::user()->name;
-        $course = $request->title_course;
         // $level = $request->level_course;
         // To add a page
         $pdf->AddPage();
@@ -148,16 +157,16 @@ class SertifikatController extends Controller
         $pdf->SetY(108);
         $pdf->Cell(0, 20, $course, 0, 1, 'C');
 
-        // $pdf->SetXY(40, 60);
-        // $pdf->Write(0.1,"Feel free to comment.");
+        // // $pdf->SetXY(40, 60);
+        // $pdf->Text(0.1,"Feel free to comment.");
 
         // Now this showing as preview in browser
 // This is output
 // let's check now by running project. But before that we have to add Route.
 
         // Because I is for preview for browser.
-        return $pdf->Output('I', $nama.'-'.$course.'.pdf');
+        // return $pdf->Output('I', $nama.'-'.$course.'.pdf');
 
-        // return redirect()->back();
+        return $pdf->Output('D', $outputfile, true);
     }
 }
