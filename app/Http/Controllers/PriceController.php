@@ -76,7 +76,7 @@ class PriceController extends Controller
     public function edit($id)
     {
         $price = Price::find($id);
-        
+
         return view('admin.price.edit', compact('price'));
     }
 
@@ -91,10 +91,12 @@ class PriceController extends Controller
     {
         // dd($request);
 
-        $price->update([
-            'paid'=> $request->price,
-            'status'=> $request->status
+        $request->validate([
+            'paid'=> 'required',
+            'status'=> 'required'
         ]);
+        $price->update($request->all());
+
         Alert::toast('Data Berhasil Diubah', 'success');
         return redirect()->route('price.index');
     }

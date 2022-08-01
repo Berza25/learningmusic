@@ -6,11 +6,12 @@
         <a href="{{ route('price.index') }}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
     </div>
 </div>
-<form method="POST" action="{{ route('price.update', $price->id) }}">
-    {{ csrf_field() }}
+<form method="POST" id="insert_form" action="{{ route('price.update', $price->id) }}">
+    @csrf
+    @method('PUT')
     <label>Price</label>
-    <input type="number" name="price" id="price" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $price->paid }}" />
-    @error('price')
+    <input type="number" name="paid" id="paid" class="form-control @error('paid') is-invalid @enderror" value="{{ $price->paid }}" />
+    @error('paid')
     <div class="alert alert-danger mt-2">
         {{ $message }}
     </div>
