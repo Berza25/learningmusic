@@ -84,19 +84,19 @@ class SertifikatController extends Controller
         //
     }
 
+    // public function process(Request $request)
+    // {
+    //     $nama = Auth::user()->name;
+    //     $course = $request->title_course;
+
+    //     $outputfile = public_path(). 'sertifikat.pdf';
+
+    //     $this->fillPDF(public_path('sertifikat/sertifikat.pdf'), $nama, $course);
+
+    //     return response()->file($outputfile);
+    // }
+
     public function process(Request $request)
-    {
-        $nama = Auth::user()->name;
-        $course = $request->title_course;
-
-        $outputfile = public_path(). '/sertifikat/'.$nama.'-'.$course.'.pdf';
-
-        $this->fillPDF(public_path('sertifikat.pdf'), $nama, $course);
-
-        return response()->file($outputfile);
-    }
-
-    public function fillPDF($outputfile, $nama, $course)
     {
         // $nama = "M. Rosyid Ridho";
         // $course = 'Piano Basic';
@@ -118,12 +118,13 @@ class SertifikatController extends Controller
         $pdf->AddFont('poppins-thin','','Poppins Thin 250.php');
 
         // to set font. This is compulsory
-
+        $nama = Auth::user()->name;
+        $course = $request->title_course;
 
         // set the source file
         // Below is the path of pdf in which you going to print details.
         //  Right now i had blank pdf
-        $path = public_path("sertifikat.pdf");
+        $path = public_path("/sertifikat/sertifikat.pdf");
 
         // Set path
         $pdf->setSourceFile($path);
@@ -167,6 +168,10 @@ class SertifikatController extends Controller
         // Because I is for preview for browser.
         // return $pdf->Output('I', $nama.'-'.$course.'.pdf');
 
-        return $pdf->Output('D', $outputfile, true);
+        $pdf->Output('F', $nama.'-'.$course.'.pdf');
+
+        $outputfile = public_path($nama.'-'.$course.'.pdf');
+
+        return response()->file($outputfile);
     }
 }

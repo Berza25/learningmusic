@@ -17,7 +17,7 @@
     </div>
     @enderror
     <br />
-    <label>Price</label>
+    <label>Status</label>
     <select name="status" value={{ $price->status }} class="form-control">
         <option value="Free" {{ $price->status == 'Free' ? 'selected' : ''}}>Free</option>
         <option value="Paid" {{ $price->status == 'Paid' ? 'selected' : ''}}>Paid</option>
