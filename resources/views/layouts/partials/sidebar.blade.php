@@ -46,6 +46,14 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link {{ request()->segment(2) == 'users' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Users
+                    </p>
+                </a>
+            </li>
         </ul>
     </nav>
       <!-- /.sidebar-menu -->

@@ -12,7 +12,7 @@
                 <div class="card mb-3 shadow">
                     <div class="row g-0">
                         <div class="col-md-5">
-                            <img src="{{ asset('materiimage/' . $itemk->image) }}" class="img-fluid rounded-start">
+                            <img src="{{ asset('materiimage/' . $itemk->image) }}" class="img-fluid rounded-start h-100 w-100">
                         </div>
                             <div class="col-md-7">
                                 <div class="card-body">
@@ -47,10 +47,25 @@
                         </div>
                     </div>
                 </div>
+                {{-- <div class="container py-3">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-sm-4">
+                                <img src="{{ asset('materiimage/'. $itemk->image) }}" class="w-100 h-100">
+                            </div>
+                            <div class="col-md-8 px-3">
+                                <div class="card-block px-3">
+                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
                 @endforeach
                 <ul class="pagination justify-content-center">
                     {{ $kelas->appends(request()->all())->links('vendor.pagination.bootstrap-4') }}
                 </ul>
+
             </div>
             <div class="col-lg-4">
                 <div class="sidebar">

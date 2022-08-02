@@ -20,7 +20,7 @@
   <aside class="main-sidebar sidebar-light-info elevation-4">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-      <img src="{{ asset('logo.png') }}" class="brand-image">
+      <img src="{{ asset('logo.png') }}" class="brand-image img-circle">
       <span class="brand-text font-weight-light">Berza Music Studio</span>
     </a>
 
@@ -28,8 +28,8 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('images/users/'. Auth::user()->foto) }}" class="img-circle elevation-2" style="object-fit: cover" alt="User Image">
+          <div class="image">
+            <img src="{{ asset('images/users/'. Auth::user()->foto) }}" class="rounded-circle img-circle" data-holder-rendered="true">
         </div>
         <div class="info">
           <a href="{{ route('profiladmin') }}" class="d-block">{{ Auth::user()->name }}</a>

@@ -13,6 +13,7 @@ use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SertifikatController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserCourseController;
 
 /*
@@ -41,6 +42,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::resource('/admin/price', PriceController::class);
     Route::get('/admin/profile', [ProfileController::class, 'adminV'])->name('profiladmin');
     Route::put('/admin/profile/{user}', [ProfileController::class, 'adminUpdate'])->name('profiladmin.update');
+    Route::resource('/admin/users', UserController::class);
  });
  Route::group(['middleware' => 'hakakses:user,admin,murid'], function(){
     Route::resource('/mycourse', MyCourseController::class);
