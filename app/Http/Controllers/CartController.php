@@ -22,7 +22,9 @@ class CartController extends Controller
 
         $sumtot = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->sum('total');
 
-        $ord = Order::with('user')->where(['user_id' => $user, 'payment_status' =>1])->firstOrFail();
+        $ord = Order::with('user')->where(['user_id' => $user, 'payment_status' =>1])->get();
+
+        // dd($ord);
 
 
         return view('user.cart.index', compact('carts', 'sumtot', 'ord'));

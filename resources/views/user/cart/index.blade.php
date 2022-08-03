@@ -65,7 +65,7 @@
                                         <h4>Rp{{ number_format($sumtot,0,',','.') }}</h4>
                                     {{-- @endforeach --}}
                                 </div>
-                                @if (empty($ord))
+                                @if (count($ord) == 0)
                                 <form action="{{ route('order.store') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="total" value="{{ $sumtot }}">
