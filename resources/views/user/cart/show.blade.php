@@ -65,20 +65,21 @@
                                         <h4>Rp{{ number_format($sumtot,0,',','.') }}</h4>
                                     {{-- @endforeach --}}
                                 </div>
-                                @if (empty($ord))
-                                <form action="{{ route('order.store') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="total" value="{{ $sumtot }}">
-                                    <button type="submit" class="btn btn-primary">Checkout</button>
-                                </form>
-                                @else
-                                <a href="{{ route('order.index') }}" class="btn btn-primary">Order</a>
-                                @endif
+                                <button type="submit" id="pay-button" class="btn btn-primary">Checkout</button>
                             {{-- </form> --}}
                         </div>
                     </div>
+                    {{-- <img src="{{ asset('materiimage/' . $item->course->image) }}" alt="" height="250"> --}}
+                    {{-- <form action="{{route('cart.checkout')}}" method="POST"> --}}
+                        {{-- @csrf --}}
+                    {{-- </form> --}}
                 </div>
             </div>
+
+            {{-- <form action="{{ route('cart.payment') }}" id="submit_form" method="POST">
+                @csrf
+                <input type="hidden" name="json" id="json_callback">
+            </form> --}}
             @else
             <div class="text-center" data-aos="fade-up" data-aos-delay="200">
                 <p class="mt-5">Anda Tidak Memiliki Course, Silahkan Beli Course Terlebih Dahulu <a href="/courses">Klik Disini</a></p>
@@ -87,3 +88,37 @@
     </div>
     </section>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+    // For example trigger on button clicked, or any time you need
+    var payButton = document.getElementById('pay-button');
+    payButton.addEventListener('click', function () {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay('{{ $snapToken }}', {
+        onSuccess: function(result){
+            /* You may add your own implementation here */
+            console.log(result);
+            // send_response_to_form(result);
+        },
+        onPending: function(result){
+            /* You may add your own implementation here */
+            console.log(result);
+            // send_response_to_form(result);
+        },
+        onError: function(result){
+            /* You may add your own implementation here */
+            console.log(result);
+            // send_response_to_form(result);
+        },
+        onClose: function(){
+            /* You may add your own implementation here */
+            alert('you closed the popup without finishing the payment');
+        }
+        })
+    });
+    // function send_response_to_form(result){
+    //     document.getElementById('json_callback').value = JSON.stringify(result);
+    //     $('#submit_form').submit();
+    // }
+    </script>
+@endpush

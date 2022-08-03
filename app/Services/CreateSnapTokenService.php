@@ -3,6 +3,8 @@
 namespace App\Services\Midtrans;
 
 use Midtrans\Snap;
+use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class CreateSnapTokenService extends Midtrans
@@ -18,25 +20,27 @@ class CreateSnapTokenService extends Midtrans
 
     public function getSnapToken()
     {
+
+        $user = Auth::user()->id;
+        $carts = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->get();
+
+        $item_details = array();
+        foreach($carts as $item)
+        {
+            $item_details[] = array(
+                'id'        => $item->id,
+                'price'     => $item->total,
+                'quantity'  => 1,
+                'name'      => $item->course->title,
+            );
+        }
+
         $params = [
             'transaction_details' => [
                 'order_id' => $this->order->number,
-                'gross_amount' => $this->order->total_price,
+                'gross_amount' => $this->order->gross_amount,
             ],
-            'item_details' => [
-                [
-                    'id' => 1,
-                    'price' => '150000',
-                    'quantity' => 1,
-                    'name' => 'Flashdisk Toshiba 32GB',
-                ],
-                [
-                    'id' => 2,
-                    'price' => '60000',
-                    'quantity' => 2,
-                    'name' => 'Memory Card VGEN 4GB',
-                ],
-            ],
+            'item_details' => $item_details,
             'customer_details' => [
                 'first_name' => Auth::user()->name,
                 'email' => Auth::user()->email,

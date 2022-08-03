@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Services\Midtrans\CreateSnapTokenService;
 
 class CartController extends Controller
@@ -23,66 +24,10 @@ class CartController extends Controller
 
         $sumtot = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->sum('total');
 
-        // $snapToken = $order->snap_token;
-        // if (empty($snapToken)) {
-        //     // Jika snap token masih NULL, buat token snap dan simpan ke database
+        $ord = Order::with('user')->where(['user_id' => $user, 'payment_status' =>1])->first();
 
-        //     $midtrans = new CreateSnapTokenService($order);
-        //     $snapToken = $midtrans->getSnapToken();
 
-        //     $order->snap_token = $snapToken;
-        //     $order->save();
-        // }
-        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
-        $params = [
-            'transaction_details' => [
-                'order_id' => 'asdad',
-                'gross_amount' => '1000'
-            ],
-            'item_details' => [
-                [
-                    'id' => 1,
-                    'price' => '150000',
-                    'quantity' => 1,
-                    'name' => 'Flashdisk Toshiba 32GB',
-                ],
-                [
-                    'id' => 2,
-                    'price' => '60000',
-                    'quantity' => 2,
-                    'name' => 'Memory Card VGEN 4GB',
-                ],
-            ],
-            'customer_details' => [
-                'first_name' => Auth::user()->name,
-                'email' => Auth::user()->email,
-            ]
-        ];
-
-        $snapToken = Snap::getSnapToken($params);
-
-        return view('user.cart.index', compact('carts', 'sumtot', 'snapToken'));
-    }
-    public function paymentPost(Request $request){
-        $json = json_decode($request->get('json'));
-        $order = new Order();
-        $order->fraud_status = $json->transaction_status;
-        $order->name = Auth::user()->name;
-        $order->email = Auth::user()->email;
-        $order->number = '082123131311';
-        $order->transaction_id = $json->transaction_id;
-        $order->order_id = $json->order_id;
-        $order->gross_amount = $json->gross_amount;
-        $order->payment_type = $json->payment_type;
-        $order->payment_code = isset($json->payment_code) ? $json->payment_code : null;
-        $order->pdf_url = isset($json->pdf_url) ? $json->pdf_url : null;
-        return $order->save() ? redirect(url('/'))->with('alert-success', 'Order berhasil dibuat') : redirect(url('/'))->with('alert-failed', 'Terjadi kesalahan');
+        return view('user.cart.index', compact('carts', 'sumtot', 'ord'));
     }
 
     /**
@@ -118,7 +63,9 @@ class CartController extends Controller
             'status_cart' => $status_cart,
             'total' => $request->total
         ]);
-        return redirect()->route('cart.index');
+
+        Alert::toast('Data Berhasil Ditambah', 'success');
+        return redirect()->back();
     }
 
     /**
@@ -164,6 +111,7 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         $cart->delete();
+        Alert::toast('Data Berhasil Dihapus', 'warning');
         return redirect()->back();
     }
 }

@@ -4,17 +4,18 @@ use App\Http\Middleware\HakAkses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SertifikatController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserCourseController;
+use App\Http\Controllers\PaymentCallbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::get('/mycourse/lesson/{slug}', [LessonController::class,'usershow'])->name('lesson.user.show');
     Route::get('/mycourse/{course_id}/lesson', [LessonController::class,'indexuser'])->name('lesson.user.index');
     Route::resource('/cart', CartController::class);
+    Route::resource('/order', OrderController::class);
     Route::post('/course/komen', [UserCourseController::class, 'comment'])->name('course.comment');
     Route::post('/lesson/check', [LessonController::class,'completion'])->name('lesson.user.completion');
     Route::get('/user/profile', [ProfileController::class, 'userV'])->name('profileuser');
@@ -57,6 +59,6 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::post('/sertif', [SertifikatController::class, 'process'])->name('sertif');
  });
 
- Route::post('/paymentpost', [CartController::class, 'paymentPost'])->name('cart.payment');
+ Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
 
 });
