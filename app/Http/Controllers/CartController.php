@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Midtrans\Snap;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Services\Midtrans\CreateSnapTokenService;
 
 class CartController extends Controller
 {
