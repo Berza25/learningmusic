@@ -66,9 +66,13 @@
         <div class="col-md-4">
             <div class="card shadow">
                 <div class="card-body">
+                    @if ($user->foto == NULL)
+                    <img height="100%" width="100%" id="preview-image" src={{ asset('images.png') }} />
+                    @else
                     <a class="card-profile-image mt-4" href="{{ asset('images/users/'. $user->foto) }}" target="_blank">
                         <img height="100%" width="100%" id="preview-image" src="{{ asset('images/users/'. $user->foto) }}" />
                     </a>
+                    @endif
                     <input type="file" class="form-control" name="foto" id="image">
                 </form>
             </div>

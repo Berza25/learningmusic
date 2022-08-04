@@ -12,7 +12,7 @@
                 <div class="card mb-3 shadow">
                     <div class="row g-0">
                         <div class="col-md-5">
-                            <img src="{{ asset('materiimage/' . $itemk->image) }}" class="img-fluid rounded-start h-100 w-100">
+                            <img src="{{ asset('materiimage/' . $itemk->image) }}" class="img-fluid rounded-start h-100 w-100" style="object-fit: cover">
                         </div>
                             <div class="col-md-7">
                                 <div class="card-body">

@@ -2,6 +2,12 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/" class="nav-link">
+                    <i class="nav-icon fas fa-home"></i>
+                    Home
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="/dashboard" class="nav-link {{ request()->segment(1) == 'dashboard' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -53,6 +59,18 @@
                         Users
                     </p>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </li>
         </ul>
     </nav>

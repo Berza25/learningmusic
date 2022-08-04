@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use setasign\Fpdi\Fpdi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use setasign\Fpdi\Fpdi;
+use Illuminate\Support\Facades\Storage;
 
 class SertifikatController extends Controller
 {
@@ -166,12 +167,10 @@ class SertifikatController extends Controller
 // let's check now by running project. But before that we have to add Route.
 
         // Because I is for preview for browser.
-        // return $pdf->Output('I', $nama.'-'.$course.'.pdf');
+        return $pdf->Output('I', $nama.'-'.$course.'.pdf', true);
 
-        $pdf->Output('F', $nama.'-'.$course.'.pdf');
-
-        $outputfile = public_path($nama.'-'.$course.'.pdf');
-
-        return response()->file($outputfile);
+        // $pdf->Output(public_path('sertifikat/'.$nama.'-'.$course.'.pdf'), 'F');
+        // $outputfile = public_path('sertifikat/'.$nama.'-'.$course.'.pdf');
+        // return response()->file($outputfile);
     }
 }

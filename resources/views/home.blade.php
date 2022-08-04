@@ -15,7 +15,7 @@
     </section>
 @endsection
 @section('content')
-    <section id="recent-blog-posts" class="recent-blog-posts">
+    {{-- <section id="recent-blog-posts" class="recent-blog-posts">
         <div class="container" data-aos="fade-up">
 
             <header class="section-header">
@@ -48,8 +48,45 @@
                 @endforeach
             </div>
         </div>
+    </section> --}}
+    <section id="testimonials" class="testimonials">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <p>Courses</p>
+                <h4 class="mt-4">Popular</h4>
+            </header>
+            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper-wrapper">
+                    @foreach ($kelas as $item)
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <div class="profile mt-auto">
+                                <img src="{{ asset('materiimage/' . $item->image) }}" class="img-fluid" alt="">
+                                <h3>{{ $item->title }}</h3>
+                                <h4>{{ $item->level->grade }}</h4>
+                            </div>
+                            <div class="stars">
+                                @for ($star = 1; $star <= 5; $star++)
+                                    @if ($item->rating >= $star)
+                                        <i class="bi bi-star-fill"></i>
+                                    @else
+                                        <i class='bi bi-star'></i>
+                                    @endif
+                                @endfor
+                            </div>
+                            <h3>
+                                Rp{{ number_format($item->price->paid, 0, ',', '.') }}
+                            </h3>
+                        </div>
+                    </div><!-- End testimonial item -->
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="align-items-center">
+                    <a href="{{ route('courses.index') }}" class="btn btn-primary"> View all course</a>
+                </div>
+            </div>
+        </div>
     </section>
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 @endsection

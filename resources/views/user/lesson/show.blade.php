@@ -66,7 +66,7 @@
                                         @csrf
                                         <input type="hidden" name="title_course" value="{{ $item->course->title }}">
                                         <input type="hidden" name="level_course" value="{{ $item->course->level->grade }}">
-                                        <button class="btn btn-primary" type="submit">Download</button>
+                                        <button class="btn btn-primary" type="submit" target="_blank">Download</button>
                                     </form>
 
                                     @else

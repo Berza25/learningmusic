@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
-Edit Profile
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h4>Edit Profile</h4>
+    <div align="right" class="pt-1">
+        <a href="/dashboard" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
+    </div>
+</div>
 @if ($errors->any())
     <div class="alert alert-danger border-left-danger" role="alert">
         <ul class="pl-4 my-2">
@@ -53,16 +58,20 @@ Edit Profile
                         </div>
                     </div>
                     <br />
-                    <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+                    <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card shadow">
                 <div class="card-body">
+                    @if ($user->foto == NULL)
+                    <img height="100%" width="100%" id="preview-image" src={{ asset('images.png') }} />
+                    @else
                     <a class="card-profile-image mt-4" href="{{ asset('images/users/'. $user->foto) }}" target="_blank">
                         <img height="100%" width="100%" id="preview-image" src="{{ asset('images/users/'. $user->foto) }}" />
                     </a>
+                    @endif
                     <input type="file" class="form-control" name="foto" id="image">
                 </form>
             </div>
