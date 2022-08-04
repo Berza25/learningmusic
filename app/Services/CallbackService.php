@@ -54,7 +54,7 @@ class CallbackService extends Midtrans
         return $this->order;
     }
 
-    protected function _createLocalSignatureKey()
+        protected function _createLocalSignatureKey()
     {
         $orderId = $this->order->number;
         $statusCode = $this->notification->status_code;

@@ -59,6 +59,6 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::post('/sertif', [SertifikatController::class, 'process'])->name('sertif');
  });
 
-    Route::post('/payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
+    Route::post('/handle-notification', [PaymentCallbackController::class, 'receive']);
 
 });

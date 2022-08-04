@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $table = 'orders';
-    protected $guarded = ['id'];
+    protected $fillable = ['gross_amount', 'snap_token', 'user_id', 'payment_status', 'number'];
 
     public function user()
     {

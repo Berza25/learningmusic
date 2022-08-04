@@ -15,16 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('number');
-            $table->string('fraud_status');
-            $table->string('transaction_id');
-            $table->string('order_id');
             $table->string('gross_amount');
-            $table->string('payment_type');
-            $table->string('payment_code')->nullable();
-            $table->string('pdf_url')->nullable();
+            $table->enum('payment_status', ['1', '2', '3', '4'])->comment('1=menunggu pembayaran, 2=sudah dibayar, 3=kadaluarsa, 4=batal');
+            $table->string('snap_token', 36)->nullable();
             $table->timestamps();
         });
     }

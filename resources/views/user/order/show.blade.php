@@ -40,16 +40,8 @@
             /* You may add your own implementation here */
             console.log(result);
             // send_response_to_form(result);
-        },
-        onClose: function(){
-            /* You may add your own implementation here */
-            alert('you closed the popup without finishing the payment');
         }
         })
     });
-    // function send_response_to_form(result){
-    //     document.getElementById('json_callback').value = JSON.stringify(result);
-    //     $('#submit_form').submit();
-    // }
     </script>
 @endpush
