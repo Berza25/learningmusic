@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-sm-4 text-black">
                     <div class="py-5 text-center ms-xl-4">
-                        <span class="h4 fw-bold mb-0">Music Learning Studio</span>
+                        <span class="h4 fw-bold mb-0">Berza Music Studio</span>
                     </div>
-                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                        <form method="POST" style="width: 23rem;" action="{{ route('login') }}">
+                    <div class="align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row mb-2">
                                 <label class="form-label" for="form2Example18">Email address</label>
@@ -51,21 +51,26 @@
                                 <button type="submit" class="btn btn-primary rounded">
                                     {{ __('Login') }}
                                 </button>
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </form>
-                    </div>
-                    <div class="text-center d-flex justify-content-center">
-                        <a class="btn btn-link" href="/">
-                            {{ __('Return to Home') }}
-                        </a>
-                        <a class="btn btn-link" href="{{ route('register') }}">
-                            {{ __('Register') }}
-                        </a>
+                        <div class="mt-2 mb-2">
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" style="text-decoration: none;">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        @endif
+                        </div>
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <a href="/" style="text-decoration: none;">
+                                {{ __('Return to Home') }}
+                            </a>
+                            <div align="right">
+                                <a href="{{ route('register') }}" style="text-decoration: none;">
+                                    {{ __('Register') }}
+                                </a>
+    
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-8 px-0 d-none d-sm-block">

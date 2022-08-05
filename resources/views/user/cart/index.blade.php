@@ -65,15 +65,15 @@
                                         <h4>Rp{{ number_format($sumtot,0,',','.') }}</h4>
                                     {{-- @endforeach --}}
                                 </div>
-                                @if (count($ord) == 0)
+                                {{-- @if (count($ord) == 0) --}}
                                 <form action="{{ route('order.store') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="total" value="{{ $sumtot }}">
                                     <button type="submit" class="btn btn-primary">Checkout</button>
                                 </form>
-                                @else
+                                {{-- @else
                                 <a href="{{ route('order.index') }}" class="btn btn-primary">Order</a>
-                                @endif
+                                @endif --}}
                             {{-- </form> --}}
                         </div>
                     </div>

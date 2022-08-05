@@ -20,7 +20,7 @@
                     </div>
                     {{ Auth::user()->lessonstudent()->where('course_id', $item->course->id)->count() }} of {{ $item->course->lesson->count() }}
                     <h3 class="mt-5">{{ $item->course->title }}</h3>
-                    <p>{{ substr($item->course->description, 0, 100) }}</p>
+                    <p>{!! substr($item->course->description, 0, 100) !!}</p>
                 </div>
             @empty
             <div class="text-center" data-aos="fade-up" data-aos-delay="200">

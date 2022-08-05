@@ -86,8 +86,8 @@
                     @endforeach
                 </div>
                 <div class="swiper-pagination"></div>
-                <div class="align-items-center">
-                    <a href="{{ route('courses.index') }}" class="btn btn-primary"> View all course</a>
+                <div class="text-center">
+                    <a href="{{ route('courses.index') }}" class="btn btn-outline-primary"> View all course</a>
                 </div>
             </div>
         </div>

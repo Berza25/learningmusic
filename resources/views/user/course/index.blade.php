@@ -29,7 +29,7 @@
                                     <a href="{{ route('courses.show', $itemk->slug) }}">{{ $itemk->mycourse->count() }}
                                     Student</a>
                                 </p>
-                                <div class="d-flex justify-conten-center mb-4">
+                                <div class="d-flex justify-content-start mb-4">
                                     @for ($star = 1; $star <= 5; $star++)
                                         @if ($itemk->rating >= $star)
                                             <i class="bi bi-star-fill"></i>
@@ -38,11 +38,9 @@
                                         @endif
                                     @endfor
                                 </div>
-                                <ul>
-                                    <div class="d-flex justify-content-end">
-                                        <a class="btn btn-primary" href="{{ route('courses.show', $itemk->slug) }}"> Read More</a>
-                                    </div>
-                                </ul>
+                                <div class="d-flex justify-content-end my-auto">
+                                    <a class="btn btn-outline-primary" href="{{ route('courses.show', $itemk->slug) }}"> Read More</a>
+                                </div>
                             </div>
                         </div>
                     </div>

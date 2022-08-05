@@ -17,14 +17,19 @@
                     </i>
                 </a>
             </li>
-            <li><a class="nav-link scrollto" href="{{ route('profileuser') }}">Profile</a></li>
-            <li>
-                <a class="getstarted scrollto" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </a>
+            <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{{ route('profileuser') }}">Account</a></li>
+                    <li><a href="{{ route('order.index') }}">Order Menu</a></li>
+                    <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </a>
+                    </li>
+                </ul>
             </li>
             @else
                 <li>

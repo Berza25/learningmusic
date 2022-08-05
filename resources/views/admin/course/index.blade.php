@@ -46,7 +46,7 @@
                             <td>{{ $item->level->grade }}</td>
                             <td>{{ $item->price->paid }}</td>
                             <td>{{ $item->meet }}</td>
-                            <td>{{ $item->description }}</td>
+                            <td>{!! $item->description !!}</td>
                             <td><a href="{{ asset('materiimage/' . $item->image) }}" target="_blank"><img
                                         src="{{ asset('materiimage/' . $item->image) }}" width="50px" height="50px"
                                         alt="">

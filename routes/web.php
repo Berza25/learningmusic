@@ -33,7 +33,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/courses', [UserCourseController::class,'index'])->name('courses.index');
 Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
 Route::post('/handle-notification', [PaymentCallbackController::class, 'receive']);
-Route::resource('/cart', CartController::class);
+Route::resource('/cart', CartController::class)->only('update');
 Route::resource('/mycourse', MycourseController::class)->only(['store']);
 Auth::routes();
 
@@ -53,6 +53,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::post('/mycourse/{course_id}/rating', [MyCourseController::class, 'rating'])->name('mycourse.rating');
     Route::get('/mycourse/lesson/{slug}', [LessonController::class,'usershow'])->name('lesson.user.show');
     Route::get('/mycourse/{course_id}/lesson', [LessonController::class,'indexuser'])->name('lesson.user.index');
+    Route::resource('/cart', CartController::class);
     Route::resource('/order', OrderController::class);
     Route::post('/course/komen', [UserCourseController::class, 'comment'])->name('course.comment');
     Route::post('/lesson/check', [LessonController::class,'completion'])->name('lesson.user.completion');

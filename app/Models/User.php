@@ -46,4 +46,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Lesson::class, 'lesson_students');
     }
+
+
 }

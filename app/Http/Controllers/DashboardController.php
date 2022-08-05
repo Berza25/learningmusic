@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\MyCourse;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -19,6 +20,9 @@ class DashboardController extends Controller
         $mycor = User::where('role', 'user')->count();
         $murid = User::where('role', 'murid')->count();
 
-        return view('admin.dashboard', compact('course', 'mycor', 'murid'));
+        $cour = Course::with('mycourse')->get();
+
+
+        return view('admin.dashboard', compact('course', 'mycor', 'murid', 'cour'));
     }
 }

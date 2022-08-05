@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h1>Description</h1>
-                        <p style="align-content: justify">{{ $item->course->description }}</p>
+                        <p style="align-content: justify">{!! $item->course->description !!}</p>
                         @if (!$item->course->meet == null)
                         <a href="{{ $item->course->meet }}" target="_blank" class="btn btn-secondary"><img src="{{ asset('meet.png') }}" width="20" height="20"> Meet</a>
                         @endif
