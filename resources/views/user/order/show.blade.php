@@ -18,7 +18,11 @@
                             <h5 class="card-title">Total</h5>
                             <p>Rp{{ number_format($order->gross_amount , 0, ',', '.') }}</p>
                             <h5 class="card-title">Status</h5>
-                            <p>{{ $order->payment_status }}</p>
+                            @if ($order->payment_status == 1)
+                            Menunggu Pembayaran
+                            @elseif ($order->payment_status == 2)
+                            Sudah dibayar
+                            @endif
                         </div>
                         <div class="card-footer">
                             <div class="card-text-right">

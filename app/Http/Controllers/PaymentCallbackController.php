@@ -24,7 +24,7 @@ class PaymentCallbackController extends Controller
                 Order::where('id', $order->id)->update([
                     'payment_status' => 2,
                 ]);
-                Cart::where(['user_id'=> $order->user_id, 'status_cart'=>'cart'])->update([
+                Cart::where(['order_id'=> $order->id, 'status_cart'=>'order'])->update([
                     'status_cart' => 'checkout',
                 ]);
                 $cor = Cart::where(['user_id'=> $order->user_id, 'status_cart'=>'checkout'])->get();

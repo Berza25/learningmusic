@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,14 +44,26 @@ class OrderController extends Controller
             'total' => 'required',
         ]);
 
+        // dd($request->all());
+
         $user = Auth::user()->id;
 
-        $order = Order::create([
-            'number' => 'BMS'.uniqid(),
-            'user_id' => $user,
-            'payment_status' => 1,
-            'gross_amount' => $request->total
-        ]);
+        $ord = new Order();
+        $ord->number = 'BMS'.uniqid();
+        $ord->user_id = $user;
+        $ord->payment_status = 1;
+        $ord->gross_amount = $request->total;
+        $ord->save();
+
+        $cor = Cart::where(['user_id'=> $user, 'status_cart'=>'cart'])->get();
+            $cart = array();
+            foreach($cor as $item)
+            {
+                $cart[] = array(
+                    'id'  => $item->id,
+                );
+            }
+        Cart::whereIn('id', $cart)->update(['status_cart' => 'order', 'order_id' => $ord->id]);
 
         return redirect()->route('order.index');
     }

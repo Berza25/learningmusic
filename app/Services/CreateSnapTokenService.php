@@ -22,7 +22,7 @@ class CreateSnapTokenService extends Midtrans
     {
 
         $user = Auth::user()->id;
-        $carts = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'cart'])->get();
+        $carts = Cart::with('user','course')->where(['user_id'=> $user, 'status_cart'=>'order'])->get();
 
         $item_details = array();
         foreach($carts as $item)
