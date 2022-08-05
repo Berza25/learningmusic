@@ -23,16 +23,8 @@ class MyCourseController extends Controller
     {
         $user=Auth::user()->id;
         $materi = MyCourse::with('course','user', 'course.lesson')->where('user_id','=', $user)->get();
-
-        // $dataprog = Auth::user()->lessonstudent()->count();
-        // $materi1 = MyCourse::with('course','user', 'course.lesson')->where([['user_id', Auth::user()->id], ['course_id', $idcor]])->get();
-        // foreach($materi1 as $itemmat){
-        //     $dl = $itemmat->course->lesson->count();
-        // }
-        // $persen = $dataprog/$dl*100;
-
-        // dd($dataprog);
-        return view('user.mycourse.index',compact('materi'));
+       
+        return view('user.mycourse.index', compact('materi'));
     }
 
     /**

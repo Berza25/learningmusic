@@ -2,18 +2,30 @@
 @section('title', 'Cart')
 @section('content')
     <section>
+        <header class="section-header">
+            <p>Order Details</p>
+        </header>
         <div class="container" data-aos="fade-up">
             <div class="row">
-                <div class="col md-8">
-                    <div class="card">
-                        Order Details
-                        {{-- @foreach ($order as $item) --}}
-                        {{ $order->number }}
-                        {{ $order->gross_amount }}
-                        {{ $order->payment_status }}
-                        {{-- @endforeach --}}
+                <div class="col md-10">
+                    <div class="card align-item-center">
+                        <div class="card-header">
+                            Order Details
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">ID Transaction</h5>
+                            <p>{{ $order->number }}</p>
+                            <h5 class="card-title">Total</h5>
+                            <p>Rp{{ number_format($order->gross_amount , 0, ',', '.') }}</p>
+                            <h5 class="card-title">Status</h5>
+                            <p>{{ $order->payment_status }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-text-right">
+                                <button class="btn btn-success" id="pay-button">Bayar sekarang</button>
+                            </div>
+                        </div>
                     </div>
-                    <button id="pay-button">Bayar sekarang</button>
                 </div>
             </div>
         </div>

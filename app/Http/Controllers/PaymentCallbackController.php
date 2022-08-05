@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\MyCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Midtrans\CallbackService;
@@ -22,9 +24,21 @@ class PaymentCallbackController extends Controller
                 Order::where('id', $order->id)->update([
                     'payment_status' => 2,
                 ]);
-                Cart::where(['user_id'=> Auth::user()->id, 'status_cart'=>'cart'])->update([
+                Cart::where(['user_id'=> $order->user_id, 'status_cart'=>'cart'])->update([
                     'status_cart' => 'checkout',
                 ]);
+                $cor = Cart::where(['user_id'=> $order->user_id, 'status_cart'=>'checkout'])->get();
+                $mycourse = array();
+                foreach($cor as $item)
+                {
+                    $mycourse[] = array(
+                        'course_id'  => $item->course_id,
+                        'user_id'    => $order->user_id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    );
+                }
+                MyCourse::insert($mycourse);
             }
 
             if ($callback->isExpire()) {

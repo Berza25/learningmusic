@@ -73,10 +73,14 @@
                                         <i class='bi bi-star'></i>
                                     @endif
                                 @endfor
+                                ({{ $item->rating }})
                             </div>
                             <h3>
                                 Rp{{ number_format($item->price->paid, 0, ',', '.') }}
                             </h3>
+                            <a href="{{ route('courses.show', $item->slug) }}"
+                                class="readmore stretched-link mt-auto"><span>Read More</span><i
+                                    class="bi bi-arrow-right"></i></a>
                         </div>
                     </div><!-- End testimonial item -->
                     @endforeach

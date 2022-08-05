@@ -46,7 +46,7 @@ class OrderController extends Controller
         $user = Auth::user()->id;
 
         $order = Order::create([
-            'number' => 'BML'. '-'. uniqid(),
+            'number' => 'BMS'.uniqid(),
             'user_id' => $user,
             'payment_status' => 1,
             'gross_amount' => $request->total
