@@ -45,12 +45,14 @@ class PaymentCallbackController extends Controller
                 Order::where('id', $order->id)->update([
                     'payment_status' => 3,
                 ]);
+                Cart::where(['order_id'=> $order->id, 'status_cart'=>'order'])->delete();
             }
 
             if ($callback->isCancelled()) {
                 Order::where('id', $order->id)->update([
                     'payment_status' => 4,
                 ]);
+                Cart::where(['order_id'=> $order->id, 'status_cart'=>'order'])->delete();
             }
 
             return response()

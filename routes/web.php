@@ -33,7 +33,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/courses', [UserCourseController::class,'index'])->name('courses.index');
 Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
 Route::post('/handle-notification', [PaymentCallbackController::class, 'receive']);
-Route::resource('/cart', CartController::class)->only('update');
+Route::resource('/cart', CartController::class)->only('update', 'delete');
 Route::resource('/order', OrderController::class)->only('update');
 Route::resource('/mycourse', MycourseController::class)->only(['store']);
 Auth::routes();
