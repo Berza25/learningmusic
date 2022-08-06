@@ -16,6 +16,11 @@
                             <small>Enter your email address that you used to register. We'll send you an email with a link to reset your password.</small>
                         </div>
 
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         @if ($errors->any())
                             <div class="alert alert-danger border-left-danger" role="alert">
                                 <ul class="pl-4 my-2">
