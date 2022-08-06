@@ -38,6 +38,7 @@
                         </div>
                     @enderror
                     <br>
+                    @if (!$lesson->embed_id == NULL)
                     <label>Video</label>
                     <input type="text" name="embed_id" id="embed_id" class="form-control @error('embed_id') is-invalid @enderror" value="{{ $lesson->embed_id }}" />
                     @error('embed_id')
@@ -46,14 +47,16 @@
                         </div>
                     @enderror
                     <br>
+                    @else
                     <label>Subject Matter</label>
-                    <input type="file" name="subject_matter" id="subject_matter" class="form-control @error('subject_matter') is-invalid @enderror" value="{{ $lesson->subject_matter }}" />
+                    <input type="file" name="subject_matter" id="subject_matter" class="form-control @error('subject_matter') is-invalid @enderror" accept=".pdf"/><span value="{{ $lesson->subject_matter }}">{{ $lesson->subject_matter }}</span>
                     @error('subject_matter')
                         <div class="alert alert-danger mt-2">
                             {{ $message }}
                         </div>
                     @enderror
                     <br />
+                    @endif
                     <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
                 </form>
             </div>

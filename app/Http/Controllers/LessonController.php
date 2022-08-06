@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\LessonStudent;
 use App\Models\MyCourse;
+use App\Rules\NullableIf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,8 +60,8 @@ class LessonController extends Controller
         $this->validate($request,[
             'course_id' => 'required',
             'title' => 'required',
-            'subject_matter' => 'nullable|mimes:pdf|max:10000',
-            'video' => 'nullable|string',
+            'subject_matter' => [ new NullableIf(request('video')) ], 'mimes:pdf|max:10000',
+            'video' => [ new NullableIf(request('subject_matter')) ], 'string',
 
         ]);
 
@@ -71,7 +72,6 @@ class LessonController extends Controller
                 'course_id' => $request->course_id,
                 'title' => $request->title,
                 'slug' => Str::slug($request->title),
-                'embed_id' => $request->video,
                 'subject_matter' => $newMateri
             ]);
         }else{
@@ -129,8 +129,8 @@ class LessonController extends Controller
         $this->validate($request,[
             'course_id' => 'required',
             'title' => 'required',
-            'subject_matter' => 'nullable|mimes:pdf|max:10000',
-            'embed_id' => 'nullable|string',
+            'subject_matter' => [ new NullableIf(request('embed_id')) ], 'mimes:pdf|max:10000',
+            'embed_id' => [ new NullableIf(request('subject_matter')) ], 'string',
 
         ]);
         $request->request->add(['slug' => Str::slug($request->title)]);

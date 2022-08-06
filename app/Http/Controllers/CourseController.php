@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\Level;
 use App\Models\Price;
@@ -150,10 +151,15 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        $course->delete();
-        File::delete('materiimage/'.$course->image);
-        Alert::toast('Data Berhasil Dihapus', 'warning');
-        return redirect()->back();
+        try {
+            $course->delete();
+            File::delete('materiimage/'.$course->image);
+            Alert::toast('Data Berhasil Dihapus', 'warning');
+            return redirect()->back();
+        } catch (Exception $e){
+            Alert::toast('Course Terbeli oleh user', 'error');
+            return redirect()->back();
+        }
     }
 
 }

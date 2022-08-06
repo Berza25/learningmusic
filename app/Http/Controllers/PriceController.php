@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Price;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -109,8 +110,14 @@ class PriceController extends Controller
      */
     public function destroy(Price $price)
     {
-        $price->delete();
-        Alert::toast('Data Berhasil Dihapus', 'warning');
-        return redirect()->back();
+        try {
+            $price->delete();
+            Alert::toast('Data Berhasil Dihapus', 'warning');
+            return redirect()->back();
+        } catch (Exception $e){
+            Alert::toast('Price Terpakai di course', 'error');
+            return redirect()->back();
+        }
+
     }
 }

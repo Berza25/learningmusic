@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Level;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -95,8 +96,14 @@ class LevelController extends Controller
      */
     public function destroy(Level $level)
     {
-        $level->delete();
-        Alert::toast('Data Berhasil Dihapus', 'warning');
-        return redirect()->back();
+        try {
+            $level->delete();
+            Alert::toast('Data Berhasil Dihapus', 'warning');
+            return redirect()->back();
+        } catch (Exception $e){
+            Alert::toast('Level Terpakai di course', 'error');
+            return redirect()->back();
+        }
+
     }
 }

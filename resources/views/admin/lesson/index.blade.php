@@ -98,6 +98,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                        <br />
                         <label>Title</label>
                         <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror"
                             value="{{ old('title') }}" />
@@ -106,23 +107,33 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <label>Subject_matter</label>
-                        <input type="file" name="subject_matter" id="subject_matter" class="form-control @error('subject_matter') is-invalid @enderror"
-                            value="{{ old('subject_matter') }}" />
+                        <br />
                         @error('subject_matter')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
-                        <label>Video</label>
-                        <input type="text" name="video" id="video" class="form-control @error('video') is-invalid @enderror"
-                            value="{{ old('video') }}" />
                         @error('video')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
-                        <br>
+                        <label>Select Type Lesson</label>
+                        <select class="form-control" onchange="yesnoCheck(this);" required>
+                            <option value="">Pilih Type</option>
+                            <option value="subject_matter">Subject Matter</option>
+                            <option value="video">Video</option>
+                        </select>
+                        <br />
+                        <div id="ifSubject" style="display: none;">
+                            <label>Subject Matter</label>
+                            <input type="file" name="subject_matter" id="subject_matter" class="form-control" value="{{ old('subject_matter') }}"/>
+                        </div>
+                        <div id="ifVideo" style="display: none;">
+                            <label>Video</label>
+                            <input type="text" name="video" id="video" class="form-control" value="{{ old('video') }}"/>
+                        </div>
+                        <br />
                         <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
                     </form>
                 </div>
@@ -138,5 +149,19 @@
         $(document).ready( function () {
             $('#myTable').DataTable();
         } );
+
+        function yesnoCheck(that) {
+            if (that.value == "subject_matter") {
+                document.getElementById("ifSubject").style.display = "block";
+                document.getElementById("ifVideo").style.display = "none";
+            } else if(that.value == "video") {
+                document.getElementById("ifVideo").style.display = "block";
+                document.getElementById("ifSubject").style.display = "none";
+
+            }else{
+                document.getElementById("ifSubject").style.display = "none";
+                document.getElementById("ifVideo").style.display = "none";
+            }
+        }
     </script>
 @endpush

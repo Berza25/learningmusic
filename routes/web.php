@@ -34,6 +34,7 @@ Route::get('/courses', [UserCourseController::class,'index'])->name('courses.ind
 Route::get('/courses/{slug}', [UserCourseController::class,'show'])->name('courses.show');
 Route::post('/handle-notification', [PaymentCallbackController::class, 'receive']);
 Route::resource('/cart', CartController::class)->only('update');
+Route::resource('/order', OrderController::class)->only('update');
 Route::resource('/mycourse', MycourseController::class)->only(['store']);
 Auth::routes();
 
