@@ -40,15 +40,15 @@
                                             <a class="list-group-item list-group-item-action d-flex justify-content-between {{ request()->segment(3) == $itemlesson->slug ? 'active' : '' }}"
                                                 href="{{ route('lesson.user.show', $itemlesson->slug) }}">{{ $itemlesson->title }}
                                                 <span>
-                                                    <form action="{{ route('lesson.user.completion') }}" method="POST">
+                                                    @if (empty(Auth::user()->lessonstudent()->where('lesson_id', $itemlesson->id)->count() == 0))
+                                                    <input class="justify-content-between align-items-right" type="checkbox" name="status" checked disabled>
+                                                    @else
+                                                    <form id="formcompletion" action="" name="formcompletion">
                                                         @csrf
-                                                        <input type="hidden" name="lesson_id" value="{{ $itemlesson->id }}">
-                                                        @if (empty(Auth::user()->lessonstudent()->where('lesson_id', $itemlesson->id)->count() == 0))
-                                                        <input class="justify-content-between align-items-right" type="checkbox" name="status" checked disabled>
-                                                        @else
-                                                        <input class="justify-content-between align-items-right" onclick="this.form.submit();" value="1" type="checkbox" name="status">
-                                                        @endif
+                                                        <input type="hidden" name="lesson_id" id="lesson_id" value="{{ $itemlesson->id }}">
+                                                        <input class="justify-content-between align-items-right submitForm" id="submitForm" type="checkbox">
                                                     </form>
+                                                    @endif
                                                 </span>
                                             </a>
                                         @endforeach
@@ -86,5 +86,25 @@
             @endforeach
         </div>
     {{-- </section> --}}
-
 @endsection
+@push('scripts')
+<script>
+    $('#submitForm').on('click',function(e){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+          url: "{{ url('lesson/check') }}",
+          type:"POST",
+          data:$('#formcompletion').serialize(),
+          success:function(response){
+            $('#submitForm').attr("disabled", true);
+            console.log(response);
+          },
+        });
+    });
+</script>
+@endpush

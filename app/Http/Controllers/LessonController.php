@@ -170,15 +170,13 @@ class LessonController extends Controller
     {
         $this->validate($request,[
             'lesson_id' => 'required',
-            'status' => 'required',
         ]);
 
-        LessonStudent::create([
-            'lesson_id' => $request->lesson_id,
-            'user_id' => Auth::user()->id,
-            'status' => $request->status
-        ]);
+        $lessonstudent = new LessonStudent();
+        $lessonstudent->user_id = Auth::user()->id;
+        $lessonstudent->lesson_id = $request->lesson_id;
+        $lessonstudent->save();
 
-        return redirect()->back();
+        return response()->json($lessonstudent);
     }
 }
