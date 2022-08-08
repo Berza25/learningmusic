@@ -4,6 +4,7 @@ use App\Http\Middleware\HakAkses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\OrderController;
@@ -48,6 +49,9 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::get('/admin/profile', [ProfileController::class, 'adminV'])->name('profiladmin');
     Route::put('/admin/profile/{user}', [ProfileController::class, 'adminUpdate'])->name('profiladmin.update');
     Route::resource('/admin/users', UserController::class);
+    Route::get('/admin/users-admin', [UserController::class, 'indexAdmin'])->name('useradmin');
+    Route::get('/admin/users-user', [UserController::class, 'indexUser'])->name('userindex');
+    Route::get('/admin/users-murid', [UserController::class, 'indexMurid'])->name('usermurid');
  });
  Route::group(['middleware' => 'hakakses:user,admin,murid'], function(){
     Route::resource('/mycourse', MyCourseController::class);
@@ -57,6 +61,7 @@ Route::group(['middleware' => 'hakakses:admin'], function(){
     Route::resource('/cart', CartController::class);
     Route::resource('/order', OrderController::class);
     Route::post('/course/komen', [UserCourseController::class, 'comment'])->name('course.comment');
+    Route::resource('/course/comment', CommentController::class);
     Route::post('/lesson/check', [LessonController::class,'completion'])->name('lesson.user.completion');
     Route::get('/user/profile', [ProfileController::class, 'userV'])->name('profileuser');
     Route::put('/user/profile/{user}', [ProfileController::class, 'userUpdate'])->name('profileuser.update');

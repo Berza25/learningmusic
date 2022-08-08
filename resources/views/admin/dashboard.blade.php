@@ -28,7 +28,7 @@
                 <div class="icon">
                     <i class="fas fa-user-plus"></i>
                 </div>
-                <a href="{{ route('users.index') }}" class="small-box-footer">
+                <a href="{{ route('usermurid') }}" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -45,7 +45,7 @@
                 <div class="icon">
                     <i class="fa fa-users"></i>
                 </div>
-                <a href="{{ route('users.index') }}" class="small-box-footer">
+                <a href="{{ route('userindex') }}" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -62,7 +62,7 @@
                 <div class="icon">
                     <i class="fas fa-user"></i>
                 </div>
-                <a href="{{ route('users.index') }}" class="small-box-footer">
+                <a href="{{ route('useradmin') }}" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -124,7 +124,7 @@
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{ round($itemrate->user->lessonstudent()->where('course_id', $itemrate->course->id)->count()/$itemrate->course->lesson->count()*100) }}%;" aria-valuenow="{{ round($itemrate->user->lessonstudent()->where('course_id', $itemrate->course->id)->count()/$itemrate->course->lesson->count()*100) }}" aria-valuemin="0" aria-valuemax="100">{{ round($itemrate->user->lessonstudent()->where('course_id', $itemrate->course->id)->count()/$itemrate->course->lesson->count()*100) }}%</div>
                                         </div>
-                                        {{ $itemrate->user->lessonstudent()->count() }} of {{ $itemrate->course->lesson->count() }}
+                                        {{ $itemrate->user->lessonstudent()->where('course_id', $itemrate->course->id)->count() }} of {{ $itemrate->course->lesson->count() }}
                                     </td>
                                 </tr>
                             @endforeach

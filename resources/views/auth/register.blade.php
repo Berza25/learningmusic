@@ -5,11 +5,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4 text-black">
-                <div class="py-5 text-center ms-xl-4">
-                    <span class="h4 fw-bold mb-0">Berza Music Studio</span>
+                <div class="py-3 text-center ms-xl-4">
+                    <img src="{{ url('BERZALOGOKECIL.png') }}" alt="" class="img-fluid">
+                    {{-- <span class="h4 fw-bold mb-0">Berza Music Studio</span> --}}
                 </div>
 
-                <div class="align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                <div class="align-items-center h-custom-2 px-3 ms-xl-4 mt-5 pt-3 pt-xl-0 mt-xl-n5">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="row mb-2">
@@ -46,7 +47,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <label class="form-label">Confirm Password</label>
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
 
@@ -56,9 +57,11 @@
                                 </span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary rounded">
-                            {{ __('Register') }}
-                        </button>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary rounded">
+                                {{ __('Register') }}
+                            </button>
+                        </div>
                     </form>
                     <div class="d-sm-flex align-items-center justify-content-between mt-2">
                         <a style="text-decoration: none;" href="/">

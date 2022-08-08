@@ -5,10 +5,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4 text-black">
-                    <div class="py-5 text-center ms-xl-4">
-                        <span class="h4 fw-bold mb-0">Berza Music Studio</span>
+                    <div class="py-3 text-center ms-xl-4">
+                        <img src="{{ url('BERZALOGOKECIL.png') }}" alt="" class="img-fluid">
+                        {{-- <span class="h4 fw-bold mb-0">Berza Music Studio</span> --}}
                     </div>
-                    <div class="align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                    <div class="align-items-center h-custom-2 px-3 ms-xl-4 mt-5 pt-3 pt-xl-0 mt-xl-n5">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row mb-2">
@@ -68,7 +69,7 @@
                                 <a href="{{ route('register') }}" style="text-decoration: none;">
                                     {{ __('Register') }}
                                 </a>
-    
+
                             </div>
                         </div>
                     </div>

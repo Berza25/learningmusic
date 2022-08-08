@@ -56,6 +56,27 @@
                                     <p class="small mb-0">
                                         {{ $itemcomment->konten }}
                                     </p>
+                                    @auth
+                                        @if ($itemcomment->user->id == auth()->user()->id)
+                                        <div class="d-flex">
+                                            <button class="px-3 btn btneditkomutama" value="{{ $itemcomment->id }}"><i class="bi bi-pencil"> <small>Edit</small></i></button>
+                                            <form action="{{route('comment.destroy', $itemcomment->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="btn"><i class="fa fa-trash"></i> <small>Hapus</small></button>
+                                            </form>
+                                            {{-- <a href=""><i class="bi bi-trash">Delete</i></a> --}}
+                                        </div>
+                                        <div class="edit-komentarutama mt-3" style="display: none;">
+                                            <form action="{{ route('comment.update', $itemcomment->id) }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <textarea name="konten" class="form-control mt-3">{{ $itemcomment->konten }}</textarea>
+                                                <input type="submit" class="btn btn-primary mt-2" value="Update">
+                                            </form>
+                                        </div>
+                                        @endif
+                                    @endauth
                                     <div class="input-komentar" style="display: none;">
                                         <form action="{{ route('course.comment') }}" method="post">
                                             @csrf
@@ -70,20 +91,38 @@
                                         @if ($parent->user->foto != null)
                                         <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images/users/'. $parent->user->foto) }}" alt="avatar" width="65" height="65" />
                                         @else
-                                        {{-- <figure class="rounded-circle shadow-1-strong me-3" data-initial="{{ $parent->user->name[0] }}">{{ $parent->user->name[0] }}</figure> --}}
                                         <img class="rounded-circle shadow-1-strong me-3" src="{{ asset('images.png') }}" alt="avatar" width="65" height="65" />
                                         @endif
                                         <div class="flex-grow-1 flex-shrink-1">
-                                            <div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">
-                                                        {{ $parent->user->name }} <span class="small">- {{ $parent->created_at->diffForHumans() }}</span>
-                                                    </p>
-                                                </div>
-                                                <p class="small mb-0">
-                                                    {{ $parent->konten }}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="mb-1">
+                                                    {{ $parent->user->name }} <span class="small">- {{ $parent->created_at->diffForHumans() }}</span>
                                                 </p>
                                             </div>
+                                            <p class="small mb-0">
+                                                {{ $parent->konten }}
+                                            </p>
+                                            @auth
+                                                @if ($parent->user->id == auth()->user()->id)
+                                                <div class="d-flex">
+                                                    <button class="px-3 btn btneditkom" value="{{ $parent->id }}"><i class="bi bi-pencil"> <small>Edit</small></i></button>
+                                                    <form action="{{route('comment.destroy', $parent->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="btn"><i class="fa fa-trash"></i> <small>Hapus</small></button>
+                                                    </form>
+                                                    {{-- <a href=""><i class="bi bi-trash">Delete</i></a> --}}
+                                                </div>
+                                                <div class="edit-komentar mt-3" style="display: none;">
+                                                    <form action="{{ route('comment.update', $parent->id) }}" method="post">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <textarea name="konten" class="form-control mt-3">{{ $parent->konten }}</textarea>
+                                                        <input type="submit" class="btn btn-primary mt-2" value="Update">
+                                                    </form>
+                                                </div>
+                                                @endif
+                                            @endauth
                                         </div>
                                     </div>
                                     @endforeach
@@ -152,5 +191,35 @@
                 $('.input-komentar').toggle('slide')
             });
         });
+
+        $(document).on("click", ".btneditkom", function()
+            {
+                $('.edit-komentar').toggle('slide')
+                let id = $(this).val();
+                $.ajax({
+                    method: "get",
+                    url :  "/course/comment/"+id+"/edit",
+                }).done(function(response)
+                {
+                    $("#konten").val(response.konten);
+                    $("#edit-komentar").attr("action", "/course/comment/" + id)
+                });
+            }
+        );
+
+        $(document).on("click", ".btneditkomutama", function()
+            {
+                $('.edit-komentarutama').toggle('slide')
+                let id = $(this).val();
+                $.ajax({
+                    method: "get",
+                    url :  "/course/comment/"+id+"/edit",
+                }).done(function(response)
+                {
+                    $("#konten").val(response.konten);
+                    $("#edit-komentar").attr("action", "/course/comment/" + id)
+                });
+            }
+        );
     </script>
 @endpush

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CommentController extends Controller
 {
@@ -35,7 +37,15 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Comment::updateOrCreate([
+            'konten' => $request->konten,
+            'user_id' => $request->user_id,
+            'course_id' => $request->course_id,
+            'parent' => $request->parent
+        ]);
+
+        return redirect()->back();
+        // return response()->json(['success'=>'Data saved successfully!']);
     }
 
     /**
@@ -55,9 +65,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
-        //
+        $comment = Comment::find($id);
+        return $comment;
     }
 
     /**
@@ -67,9 +78,19 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'konten' => 'required'
+        ]);
+
+        $comment = Comment::findOrFail($id);
+
+        $comment->konten = $request->konten;
+        $comment->save();
+
+        Alert::toast('Data Berhasil Diupdate', 'success');
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +99,12 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+
+    public function destroy($id)
     {
-        //
+        $comment = Comment::where('user_id', Auth::user()->id)->find($id);
+        $comment->delete();
+        Alert::toast('Comment Berhasil Dihapus', 'warning');
+        return redirect()->back();
     }
 }

@@ -18,6 +18,23 @@ class UserController extends Controller
         $user = User::all();
         return view('admin.users', compact('user'));
     }
+    public function indexAdmin()
+    {
+        $user = User::where('role', 'admin')->get();
+        return view('admin.userview.useradmin', compact('user'));
+    }
+
+    public function indexUser()
+    {
+        $user = User::where('role', 'user')->get();
+        return view('admin.userview.userindex', compact('user'));
+    }
+
+    public function indexMurid()
+    {
+        $user = User::where('role', 'murid')->get();
+        return view('admin.userview.usermurid', compact('user'));
+    }
 
     /**
      * Show the form for creating a new resource.

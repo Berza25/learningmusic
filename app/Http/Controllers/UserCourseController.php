@@ -10,6 +10,7 @@ use App\Models\Lesson;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserCourseController extends Controller
 {

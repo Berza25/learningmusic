@@ -20,9 +20,7 @@
             </div>
         </section> --}}
         <section class="inner-page">
-            <div class="container">
-                @yield('content')
-            </div>
+            @yield('content')
         </section>
     </main>
     @include('user.layout.partials.footer')
