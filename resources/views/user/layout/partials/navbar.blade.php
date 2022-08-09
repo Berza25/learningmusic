@@ -17,7 +17,17 @@
                     </i>
                 </a>
             </li>
-            <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown">
+                <a href="#">
+                    <span>
+                        @if (auth()->user()->foto != null)
+                        <img class="rounded-circle shadow-1-strong border-2 border border-primary" src="{{ asset('images/users/'. auth()->user()->foto) }}" alt="avatar" width="30" height="30" />
+                        @else
+                        <img class="rounded-circle shadow-1-strong border border-2 border-primary" src="{{ asset('images.png') }}" alt="avatar" width="30" height="30" />
+                        @endif
+                        <i class="bi bi-chevron-down"></i>
+                    </span>
+                </a>
                 <ul>
                     <li><a href="{{ route('profileuser') }}">Account</a></li>
                     <li><a href="{{ route('order.index') }}">Order Menu</a></li>

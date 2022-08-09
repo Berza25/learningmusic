@@ -28,11 +28,9 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="{{ asset('images/users/'. Auth::user()->foto) }}" class="rounded-circle img-circle" data-holder-rendered="true">
-        </div>
+            <img src="{{ asset('images/users/'. Auth::user()->foto) }}" class="rounded-circle img-circle"  width="30" height="30">
         <div class="info">
-          <a href="{{ route('profiladmin') }}" class="d-block">{{ Auth::user()->name }}</a>
+            <a href="{{ route('profiladmin') }}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
