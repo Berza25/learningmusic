@@ -29,7 +29,7 @@ class Course extends Model
 
     public function getRatingAttribute()
     {
-        return number_format(DB::table('mycourse')->where('course_id', $this->attributes['id'])->average('rating'), 2);
+        return number_format(DB::table('mycourse')->where('course_id', $this->attributes['id'])->where('rating', '>', 0)->average('rating'), 2);
     }
 
     public function lesson()
